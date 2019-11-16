@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//myb atis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="userinfoMapper">
+	<insert id="insertUser" parameterType="UserInfo">
+		INSERT INTO USERINFO
+		VALUES(#{userId}, #{minihomeCode}, #{userPwd}, #{userName}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+	<select id="checkRegister" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		FROM USERINFO
+		WHERE USERID = #{userId}
+	</select>
+	<select id="selectUser" parameterType="UserInfo" resultType ="UserInfo">
+		SELECT *
+		FROM USERINFO
+		WHERE USERID = #{userId}
+	</select>
+	<select id="myPageUser" parameterType="UserInfo" resultType ="UserInfo">
+		SELECT *
+		FROM USERINFO
+		WHERE USERID = #{userId}
+	</select>
+	<update id="updateUser" parameterType="UserInfo">
+		UPDATE USERINFO
+		SET USERPWD = #{userPwd}
+		WHERE USERID = #{userId}
+	</update>
+</mapper>
