@@ -20,6 +20,17 @@ public class UserServiceImpl implements UserService {
 	public int insertMember(UserInfo u) {
 		return uDao.insertUser(u);
 	}
+
+	@Override
+	public UserInfo selectUser(UserInfo u) {
+		
+		return uDao.selectUser(u);
+	}
+
+	@Override
+	public int updateUser(UserInfo u) {
+		return uDao.updateUser(u);
+	}
 	
 	
 }

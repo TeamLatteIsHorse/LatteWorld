@@ -6,7 +6,7 @@
 <head>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <meta charset="UTF-8">
-<title>라떼는 이렇게 회원가입 했어</title>
+<title>내 정보 보기</title>
 <style>
 </style>
 </head>
@@ -16,14 +16,14 @@
 		<div class = "content">	
 			<div id = "update" align = "center">
 				<h1>마이 페이지</h1>
-				
-				<form id = "updateForm" method = "post" >
+				<c:url var = "userUpdate" value ="update.do"/>				
+				<form id = "updateForm" method = "post" action = "${userUpdate }">
 					<label id = "nameLabel">이름</label>
-					<input name = "userName" id = "userName" type = "text" value = "${user.userName }" readonly><br>
+					<input name = "userName" id = "userName" type = "text" value = "${UserInfo.userName }" readonly><br>
 					<label id = "emailLabel">이메일</label>
-					<input type = "text" name = "userId" value = "${user.userId }" readonly><br>
+					<input type = "text" name = "userId" value = "${UserInfo.userId }" readonly><br>
 					<label id = "pwd1Label">비밀번호</label>
-					<input id = "userPwd1" type = "password" name = "userPwd1" placeholder = "비밀번호 입력!"><br>
+					<input id = "userPwd1" type = "password" name = "userPwd" placeholder = "비밀번호 입력!"><br>
 					<label id = "pwd1Check" style = "display : none">비밀번호는 영문 대문자 + 영문 소문자 + 숫자 + 특수문자 조합으로 입력해주세요.(최대 20글자)</label>
 					<label id = "pwd2Label">비밀번호 확인</label>
 					<input id = "userPwd2" type = "password" name = "userPwd2" placeholder = "비밀번호 확인!"><br>
@@ -31,7 +31,7 @@
 					
 					<hr>
 					<a href="javascript:history.back();">뒤로가기</a>
-					<label onclick = "updateInfo()">수정하기</label>
+					<button>수정하기</button>
 				</form>	
 			</div>
 		</div>
@@ -41,7 +41,7 @@
 	var date;
 
 	function updateInfo(){
-            var passwd = document.getElementById("userPwd1");
+            var passwd = document.getElementById("userPwd");
             var passwd2 = document.getElementById("userPwd2");
 			
             var re = /^[a-zA-Z!-)\d]{8,15}$/;
@@ -57,7 +57,7 @@
                 return false;
             }
             
-            $("#updateForm").attr("action","<%=request.getContextPath() %>/UpdateUserInfoServlet").submit();
+            $("#updateForm").attr("action","update.do").submit();
             return true; //전송 처리
    };
 

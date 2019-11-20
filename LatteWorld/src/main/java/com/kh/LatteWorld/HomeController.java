@@ -35,4 +35,8 @@ public class HomeController {
 	public String findUser() {
 		return "common/findUser";
 	}
+	@RequestMapping("bfFind.do")
+	public String findBF() {
+		return "bestFriend/bfFind";
+	}
 }
