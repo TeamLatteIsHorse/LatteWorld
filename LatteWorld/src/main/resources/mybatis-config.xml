@@ -6,10 +6,12 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="com.kh.LatteWorld.UserInfo.model.vo.UserInfo" alias="UserInfo"/>
+		<typeAlias type="com.kh.LatteWorld.Message.model.vo.Message" alias="Message"/>
 		<!-- 본인거 똑바로 잘적긔 -->		
 		
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/userinfo-mapper.xml"/>
+		<mapper resource="mappers/message-mapper.xml"/>
 	</mappers>
 </configuration>
