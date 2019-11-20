@@ -153,12 +153,13 @@ display : inline-block;
 			<div id="leftLogin">
 				<img src="resources/images/pic2.jpg" height="130px"
 					width="160px"><br> <label class="myNameBtn">
-					차영욱
+					${UserInfo.userName }
 					<div class="myName-content">
 						<a href="#" onClick="javascript:openWin()">내 미니홈피</a> <a href="#">일촌
 							보기</a> <a href="#">신고하기</a>
 					</div>
 				</label>님 환영합니다 :)<br>
+				<button onclick = "">쪽지 보내기</button>
 				<button	onclick="location.href='/LW/MyPageServlet?userId=promote7@naver.com'">마이
 					페이지</button>
 				<button onclick="location.href='/LW/LogoutServlet'">로그아웃</button>
