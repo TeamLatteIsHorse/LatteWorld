@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//myb atis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper>
-  <cache-ref namespace=""/>
+<mapper namespace="bestfriendMapper">
+	
+	
+	<select id="searchUser" parameterType="bfSearchCondition" resultType="UserInfo">
+		SELECT *
+		FROM USERINFO
+		WHERE USERSTATUS ='1'		
+		<if test ="bfId != null">
+			AND USERID LIKE '%'||#{bfId}||'%'
+		</if>
+		<if test ="bfName != null">
+			AND USERNAME LIKE '%'|| #{bfName}|| '%'
+		</if>
+		<if test ="bfAll != null">
+			AND (USERID LIKE '%'|| #{bfName}|| '%' OR USERID LIKE '%'||#{bfId}||'%') 
+		</if>
+	</select>
+
+
+
 </mapper>

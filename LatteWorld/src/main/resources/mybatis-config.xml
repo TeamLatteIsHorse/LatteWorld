@@ -6,10 +6,13 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="com.kh.LatteWorld.UserInfo.model.vo.UserInfo" alias="UserInfo"/>
+		<typeAlias type="com.kh.LatteWorld.bestFriend.model.vo.bfSearchCondition" alias="bfSearchCondition"/>
+		<typeAlias type="com.kh.LatteWorld.bestFriend.model.vo.BestFriend" alias="BestFriend"/>
 		<!-- 본인거 똑바로 잘적긔 -->		
 		
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/userinfo-mapper.xml"/>
+		<mapper resource="mappers/bestfriend-mapper.xml"/>
 	</mappers>
 </configuration>
