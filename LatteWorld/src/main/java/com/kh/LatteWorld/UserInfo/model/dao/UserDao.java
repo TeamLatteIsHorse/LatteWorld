@@ -25,6 +25,11 @@ public class UserDao {
 		
 		return sqlSession.update("userinfoMapper.updateUser", u);
 	}
+
+	public int checkIdDup(String userId) {
+		
+		return sqlSession.selectOne("userinfoMapper.checkIdDup", userId);
+	}
 	
 	
 	

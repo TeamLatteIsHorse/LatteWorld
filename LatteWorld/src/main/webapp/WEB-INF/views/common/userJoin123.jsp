@@ -43,28 +43,47 @@ left : 20%;
 				<h1>회원 가입</h1>
 				
 				<form id = "registerForm" method = "post" >
-					<label id = "nameLabel">이름</label>
-					<input id = "userName" type = "text" name = "userName" placeholder="이름 입력!!"><br>
-					<label id = "emailLabel">이메일</label>
-					<input id = "email" type = "text" name = "email1" placeholder = "이메일을 입력해주세요.">
-					<select id = "emailPick" name = "email2">
-						<option>@naver.com</option>
-						<option>@daum.net</option>
-						<option>@gmail.com</option>
-						<option>직접 입력</option>
-					</select><br>
-					
-					<label id = "pwd1Label">비밀번호</label>
-					<input id = "userPwd1" type = "password" name = "userPwd" placeholder = "비밀번호 입력!"><br>
-					<label id = "pwd1Check" style = "display : none">비밀번호는 영문 대문자 + 영문 소문자 + 숫자 + 특수문자 조합으로 입력해주세요.(최대 20글자)</label>
-					<label id = "pwd2Label">비밀번호 확인</label>
-					<input id = "userPwd2" type = "password" name = "userPwd2" placeholder = "비밀번호 확인!"><br>
-					<label id = "pwd2Check" style = "display : none">일치하지 않습니다.</label>
-					
-					<hr>
-					<label type = "button" value = "reset">초기화</label>
-					<label onclick = "checkForm()">가입하기</label>
+					<table border = "1" cellspacing = "3" width = "800">
+						<tr>
+							<td width = "200px">아이디</td>
+							<td><input id = "userId" type = "text" name = "userName" placeholder="아이디 입력!!"></td>
+						</tr>
+						<tr>
+							<td>비밀번호</td>
+							<td><input id = "userPwd1" type = "password" name = "userPwd" placeholder = "비밀번호 입력!"></td>
+						</tr>
+						<tr>
+							<td>비밀번호 확인</td>
+							<!-- <td>비밀번호는 영문 대문자 + 영문 소문자 + 숫자 + 특수문자 조합으로 입력해주세요.(최대 20글자)</td> -->
+							<td><input id = "userPwd2" type = "password" name = "userPwd2" placeholder = "비밀번호 확인!"></td>
+						</tr>
+						<tr>
+							<td>이름</td>
+							<td><input id = "userName" type = "text" name = "userName" placeholder="이름 입력!!"></td>
+						</tr>
+						<tr>
+							<td>이메일</td>
+							<td><input id = "email" type = "text" name = "email1" placeholder = "이메일을 입력해주세요."></td>
+						</tr>
+						<tr>
+							
+							<td>
+								<select id = "emailPick" name = "email2">
+									<option>@naver.com</option>
+									<option>@daum.net</option>
+									<option>@gmail.com</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td align = "center"><label type = "button" value = "reset">초기화</label></td>
+						</tr>
+						<tr>
+							<td align = "center"><label onclick = "checkForm()">가입하기</label></td>
+						</tr>
+					</table>
 				</form>	
+				
 			</div>
 		</div>
 	<jsp:include page="footer.jsp"/>

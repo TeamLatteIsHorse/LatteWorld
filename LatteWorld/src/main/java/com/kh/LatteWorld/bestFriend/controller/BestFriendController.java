@@ -27,8 +27,11 @@ public class BestFriendController {
 		}else if(bfsc.getBfType().equals("id")){
 			bfsc.setBfId(bfsc.getBfValue());
 		}
+		System.out.println(bfsc);
 		ArrayList<UserInfo> bfList = bfService.searchUser(bfsc);
+		
 		System.out.println(bfList);
+		
 		model.addAttribute("bfsc", bfsc);
 		model.addAttribute("bfList", bfList);
 		

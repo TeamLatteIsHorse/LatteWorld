@@ -12,4 +12,6 @@ public interface UserService {
 
 	int updateUser(UserInfo u);
 
+	int checkIdDup(String id);
+
 }

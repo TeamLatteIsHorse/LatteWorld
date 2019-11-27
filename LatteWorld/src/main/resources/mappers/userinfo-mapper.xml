@@ -3,7 +3,7 @@
 <mapper namespace="userinfoMapper">
 	<insert id="insertUser" parameterType="UserInfo">
 		INSERT INTO USERINFO
-		VALUES(#{userId}, #{minihomeCode}, #{userPwd}, #{userName}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+		VALUES(#{userId}, #{userPwd}, #{userName}, #{email}, #{phone}, DEFAULT, DEFAULT, DEFAULT)
 	</insert>
 	<select id="checkRegister" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
@@ -25,4 +25,9 @@
 		SET USERPWD = #{userPwd}
 		WHERE USERID = #{userId}
 	</update>
+	<select id="checkIdDup" parameterType="string" resultType = "_int">
+		SELECT COUNT(*)
+		FROM USERINFO
+		WHERE USERID = #{userId}
+	</select>
 </mapper>

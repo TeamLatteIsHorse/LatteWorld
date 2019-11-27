@@ -9,43 +9,34 @@ public class UserInfo implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -3811422703713145395L;
-	
 	private String userId;
-	private String minihomeCode;
 	private String userPwd;
 	private String userName;
-	private int userType;
+	private String email;
+	private String phone;
+	private String userType;
 	private String userStatus;
-	private Date registerDate;
-	private int zat;
-	private int reportCount;
+	private int point;
 	public UserInfo() {
-	 
+	
 	}
-	public UserInfo(String userId, String minihomeCode, String userPwd, String userName, int userType,
-			String userStatus, Date registerDate, int zat, int reportCount) {
+	public UserInfo(String userId, String userPwd, String userName, String email, String phone, String userType,
+			String userStatus, int point) {
 		super();
 		this.userId = userId;
-		this.minihomeCode = minihomeCode;
 		this.userPwd = userPwd;
 		this.userName = userName;
+		this.email = email;
+		this.phone = phone;
 		this.userType = userType;
 		this.userStatus = userStatus;
-		this.registerDate = registerDate;
-		this.zat = zat;
-		this.reportCount = reportCount;
+		this.point = point;
 	}
 	public String getUserId() {
 		return userId;
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-	public String getMinihomeCode() {
-		return minihomeCode;
-	}
-	public void setMinihomeCode(String minihomeCode) {
-		this.minihomeCode = minihomeCode;
 	}
 	public String getUserPwd() {
 		return userPwd;
@@ -59,10 +50,22 @@ public class UserInfo implements Serializable{
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public int getUserType() {
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getUserType() {
 		return userType;
 	}
-	public void setUserType(int userType) {
+	public void setUserType(String userType) {
 		this.userType = userType;
 	}
 	public String getUserStatus() {
@@ -71,31 +74,19 @@ public class UserInfo implements Serializable{
 	public void setUserStatus(String userStatus) {
 		this.userStatus = userStatus;
 	}
-	public Date getRegisterDate() {
-		return registerDate;
+	public int getPoint() {
+		return point;
 	}
-	public void setRegisterDate(Date registerDate) {
-		this.registerDate = registerDate;
-	}
-	public int getZat() {
-		return zat;
-	}
-	public void setZat(int zat) {
-		this.zat = zat;
-	}
-	public int getReportCount() {
-		return reportCount;
-	}
-	public void setReportCount(int reportCount) {
-		this.reportCount = reportCount;
+	public void setPoint(int point) {
+		this.point = point;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 	@Override
 	public String toString() {
-		return "UserInfo [userId=" + userId + ", minihomeCode=" + minihomeCode + ", userPwd=" + userPwd + ", userName="
-				+ userName + ", userType=" + userType + ", userStatus=" + userStatus + ", registerDate=" + registerDate
-				+ ", zat=" + zat + ", reportCount=" + reportCount + "]";
+		return "UserInfo [userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName + ", email=" + email
+				+ ", phone=" + phone + ", userType=" + userType + ", userStatus=" + userStatus + ", point=" + point
+				+ "]";
 	}
-	}
+}

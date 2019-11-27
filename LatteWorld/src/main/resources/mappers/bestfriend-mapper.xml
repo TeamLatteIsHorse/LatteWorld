@@ -6,7 +6,7 @@
 	<select id="searchUser" parameterType="bfSearchCondition" resultType="UserInfo">
 		SELECT *
 		FROM USERINFO
-		WHERE USERSTATUS ='1'		
+		WHERE USERSTATUS ='N'		
 		<if test ="bfId != null">
 			AND USERID LIKE '%'||#{bfId}||'%'
 		</if>

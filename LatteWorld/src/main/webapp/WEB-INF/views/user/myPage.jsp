@@ -12,7 +12,7 @@
 </head>
 <body>
 	
-	<jsp:include page ="mainMenuBar.jsp"/>
+	<jsp:include page ="../common/mainMenuBar.jsp"/>
 		<div class = "content">	
 			<div id = "update" align = "center">
 				<h1>마이 페이지</h1>
@@ -35,7 +35,7 @@
 				</form>	
 			</div>
 		</div>
-	<jsp:include page ="footer.jsp"/>
+	<jsp:include page ="../common/footer.jsp"/>
 	
 	<script type="text/javascript">
 	var date;

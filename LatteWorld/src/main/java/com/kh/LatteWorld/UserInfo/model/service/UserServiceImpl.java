@@ -31,6 +31,11 @@ public class UserServiceImpl implements UserService {
 	public int updateUser(UserInfo u) {
 		return uDao.updateUser(u);
 	}
+
+	@Override
+	public int checkIdDup(String userId) {
+		return uDao.checkIdDup(userId);
+	}
 	
 	
 }

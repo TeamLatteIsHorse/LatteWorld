@@ -10,8 +10,34 @@
 <style>
 	#bfFindTable td{
 	height : 33px;
-	text-align: center;
 	}
+	.dropbtn {
+	  border: none;
+	  cursor: pointer;
+	}
+
+	.dropdown {
+  		position: relative;
+  		display: inline-block;
+	}
+
+	.dropdown-content {
+	  display: none;
+	  position: absolute;
+	  min-width: 160px;
+	  overflow: auto;
+	  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	  z-index: 1;
+	}
+
+	.dropdown-content a {
+	  padding: 12px 16px;
+	  text-decoration: none;
+	  display: block;
+	}
+
+	.show {display: block;}
+	
 </style>
 </head>
 <body>
@@ -69,11 +95,19 @@
 					<td colspan = "3" rowspan ="4">검색되는 유저가 없습니다.</td>
 				</tr>					
 			</c:if>
-			
-			<!-- forEach를 통해 request에 담겨있는 list들을 하나씩 접근하여 출력하자 -->
+
 				<c:forEach var = "b" items="${bfList }">
 					<tr>
-						<td>${b.userId }</td>
+						<td>
+							<div class="dropdown">
+								<button onclick="myFunction()" class="dropbtn">${b.userId }</button>
+								<div id="nameDropdown" class="dropdown-content">
+									<a href="#home">미니 홈피</a>
+									<a href="#bf">일촌 신청</a>
+									<a href="#report">신고 하기</a>
+								</div>
+							</div>
+						</td>
 						<td>${b.userName }</td>
 					</tr>
 				</c:forEach>
@@ -163,7 +197,7 @@
 				</c:if>
 			</div>
 			</c:if>
-		<jsp:include page = "../common/footer.jsp"/>
+
 			
 			
 			<!--	게시글 상세 보기 -->
@@ -186,5 +220,28 @@
 		<c:set var = "message" value="로그인이 필요한 서비스 입니다." scope = "request"/>
 		<jsp:forward page = "../common/errorPage.jsp"/>
 	</c:if>
+	<jsp:include page = "../common/footer.jsp"/>
+
+<script>
+
+function myFunction() {
+  document.getElementById("nameDropdown").classList.toggle("show");
+}
+
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+	
 </body>
 </html>

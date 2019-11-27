@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="http://code.jquery.com/jquery-3.3.1.min/js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
@@ -68,28 +69,36 @@ div#topMenu {
 #topMenu *{
 display : inline-block;
 }
-/* drop down 시작 */
-.myName {
-  position: relative;
-  display: inline-block;
-}
-.myName-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
 
-.myName-content a {
-  color: black;
-  text-decoration: none;
-  display: block;
-}
-.myName-content a:hover {background-color: #ddd;}
+/* 이름 클릭 드롭박스 */
+	.logdropbtn {
+	  border: none;
+	  cursor: pointer;
+	}
 
-.myNameBtn:hover .myName-content {display: block;}
+	.logdropdown {
+  		position: relative;
+  		display: inline-block;
+	}
+
+	.logdropdown-content {
+	  display: none;
+	  background : white;
+	  position: absolute;
+	  min-width: 160px;
+	  overflow: auto;
+	  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	  z-index: 1;
+	}
+
+	.logdropdown-content a {
+	  padding: 12px 16px;
+	  text-decoration: none;
+	  display: block;
+	}
+
+	.show {display: block;}
+	
 </style>
 </head>
 <body>
@@ -130,12 +139,15 @@ display : inline-block;
 			<div id="leftLogin">
 				<img src="resources/images/pic2.jpg" height="130px"
 					width="160px"><br> <label class="myNameBtn">
-					${UserInfo.userName }
-					<div class="myName-content">
-						<a href="#" onClick="javascript:openWin()">내 미니홈피</a> <a href="#">BF
-							보기</a> <a href="#">신고하기</a>
+					<div class="logdropdown">
+						<button onclick="logmyFunction()" class="logdropbtn">${UserInfo.userName }</button>
+						<div id="lognameDropdown" class="logdropdown-content">
+							<a href="#home">미니 홈피</a>
+							<a href="#bf">일촌 신청</a>
+							<a href="#report">신고 하기</a>
+						</div>
 					</div>
-				</label>님 환영합니다 :)<br>
+					님 환영합니다 :)
 				<button onclick = "">쪽지 보내기</button>
 				<c:url var = "mypage" value = "mypage.do">
 					<c:param name = "userId" value = "${UserInfo.userId }"/>
@@ -181,6 +193,27 @@ display : inline-block;
 	} 
 	
 	</script>
+	
+	<script>
+
+function logmyFunction() {
+  document.getElementById("lognameDropdown").classList.toggle("logshow");
+}
+
+
+window.onclick = function(event) {
+  if (!event.target.matches('.logdropbtn')) {
+    var dropdowns = document.getElementsByClassName("logdropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('logshow')) {
+        openDropdown.classList.remove('logshow');
+      }
+    }
+  }
+}
+</script>
 
 </body>
 </html>
