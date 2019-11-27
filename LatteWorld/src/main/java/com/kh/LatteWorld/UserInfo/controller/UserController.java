@@ -28,7 +28,9 @@ public class UserController {
 	
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
 	public String memberLogin(UserInfo u, Model model, SessionStatus status) {
+		
 		UserInfo user = uService.loginUser(u);
+		
 		if(bcryptPasswordEncoder.matches(u.getUserPwd(), user.getUserPwd())) {
 			model.addAttribute("UserInfo",user);
 		}else {
@@ -49,15 +51,15 @@ public class UserController {
 	public String userJoin(UserInfo u, Model model,
 							@RequestParam("email1") String email1,
 							@RequestParam("email2") String email2) {
-		System.out.println(u);
-		System.out.println("e1 : " + email1);
-		System.out.println("e2 : " + email2);
-		System.out.println(u.getUserPwd());
+		
 		String encPwd =  bcryptPasswordEncoder.encode(u.getUserPwd());
-		System.out.println(encPwd);
-		u.setUserPwd(encPwd);
+
+		u.setUserPwd(encPwd);	// 패스워드 암호화 넣기
 		String userId = email1 + email2;
-		u.setUserId(userId);
+
+		u.setUserId(userId);	// 유저 아이디는 email합친것들
+		
+		u.setMinihomeCode(email1);
 		int result = uService.insertMember(u);
 		
 		if(result >0) {

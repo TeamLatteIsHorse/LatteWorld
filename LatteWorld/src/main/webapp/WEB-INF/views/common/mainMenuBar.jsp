@@ -117,8 +117,13 @@ display : inline-block;
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>
 	<div class="topnav">
 		<div id="topMenu">
-			<img id="mainLogo" width="80px" height="80px" src="resources/images/MainLogo.jpg" onclick="location.href ='mainPage.jsp'">
-			<div id ="link"><a href="#"	onClick="javascript:openWin()">미니홈피</a><a>일촌 신청하기</a><a>선물가게</a></div>
+			<img id="mainLogo" width="80px" height="80px" src="resources/images/MainLogo.jpg" onclick="location.href ='home.do'">
+			<div id ="link">
+				<a href="#"	onClick="javascript:openWin()">미니홈피</a>
+				<a>일촌 신청하기</a>
+				<c:url var="itemStoreList" value = "itemStoreList.do"></c:url>
+				<a href = "${itemStoreList}">선물가게</a>
+			</div>
 			<input type="button" value="BGM 상점">
 		</div>
 	</div>
@@ -153,7 +158,7 @@ display : inline-block;
 			<div id="leftLogin">
 				<img src="resources/images/pic2.jpg" height="130px"
 					width="160px"><br> <label class="myNameBtn">
-					차영욱
+					${UserInfo.userName}
 					<div class="myName-content">
 						<a href="#" onClick="javascript:openWin()">내 미니홈피</a> <a href="#">일촌
 							보기</a> <a href="#">신고하기</a>
@@ -161,7 +166,8 @@ display : inline-block;
 				</label>님 환영합니다 :)<br>
 				<button	onclick="location.href='/LW/MyPageServlet?userId=promote7@naver.com'">마이
 					페이지</button>
-				<button onclick="location.href='/LW/LogoutServlet'">로그아웃</button>
+					<c:url var = "logout" value = "logout.do"></c:url>
+				<button onclick="location.href = '${logout}'">로그아웃</button>
 			</div>
 		</c:if>	
 		

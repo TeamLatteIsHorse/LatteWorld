@@ -1,5 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//myb atis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper>
-  <cache-ref namespace=""/>
+<mapper namespace = "itemMapper">
+	<resultMap type="ItemStore" id="ItemResultSet">
+	<id property="itemNo" column="ITEMNO"/>
+	<result property="price" column="PRICE"/>
+	<result property="itemCategory" column="ITEMCATEGORY"/>
+	<result property="itemCount" column="ITEMCOUNT"/>
+	<result property="itemLink" column="ITEMLINK"/>
+	<result property="createDate" column="CREATEITEM"/>
+	<result property="itemStatus" column="ITEMSTATUS"/>
+	<result property="itemName" column="itemName"/>
+	
+	</resultMap>
+	
+	<select id="getItemListCount" resultType="_int">
+		SELECT COUNT(*) 
+		FROM ITEMSTORE
+		WHERE ITEMSTATUS='Y'
+	</select>
+	
+	<select id="selectItemList" resultMap = "ItemResultSet">
+		SELECT * 
+		FROM ITEMSTORE
+		ORDER BY ITEMNO DESC
+	</select>
+	
+	<select id="selectBestItemList" resultMap = "ItemResultSet">
+	<![CDATA[
+	SELECT *
+	FROM (SELECT * 
+        FROM ITEMSTORE
+        WHERE ITEMCATEGORY=#{itemCategory}
+        ORDER BY ITEMCOUNT DESC)
+	WHERE ROWNUM <= 3
+	]]>
+	</select>
 </mapper>
