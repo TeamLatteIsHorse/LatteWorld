@@ -82,10 +82,10 @@ div#minihomeMenu {
 </head>
 <body onresize="parent.resizeTo(1320,800)" onload="parent.resizeTo(1320,800)" style="overflow-x:hidden; overflow-y:hidden;">
 	<div id = "miniHome">
-	<div id="visitCheck" style="height: 56px;width:  199px;"><label id="todayVisitCount">오늘의 방문자</label> / <label id="totalVisitCount">총 방문자</label></div>
-	<div id = "miniTitle" style = "height : 56px"><%= userName %> 미니홈피</div>
+	<div id="visitCheck" style="height: 56px; width:  199px;"><label id="todayVisitCount">오늘의 방문자</label> / <label id="totalVisitCount">총 방문자</label></div>
+	<div id = "miniTitle" style = "height : 56px">${UserInfo.userName }님의 미니홈피</div>
 		<div id = "miniLeft">
-			<div id = "profile"><img alt="" src="">이미지를 하나 넣고나서 <br><br><br><br><br><br><br><br><br>ㄴr는 ㄱr끔 눙물을 흘린ㄷr...*<br><button id = "profileHistory">history</button></div>
+			<div id = "profile">이미지를 하나 넣고나서 <br><br><br><br><br><br><br><br><br>ㄴr는 ㄱr끔 눙물을 흘린ㄷr...*<br><button id = "profileHistory">history</button></div>
 			<div id = "ownerInfo">개인 정보<br>이름 : 김라떼<br>나이 : 20대 중반<br>이상형 : 현모양처<br>특기 : 개드립<br>방문자에게 하고싶은 말<br> : 볼 건 없지만 재밌게 보다 가세요!<br>방명록 / 일촌평은 쎈쓰!!!!<br>
 			</div>
 			<div id = "latteWave">
