@@ -97,7 +97,7 @@ display : inline-block;
 	  display: block;
 	}
 
-	.show {display: block;}
+	.logshow {display: block;}
 	
 </style>
 </head>
@@ -138,12 +138,12 @@ display : inline-block;
 		<c:if test = "${!empty sessionScope.UserInfo}">
 			<div id="leftLogin">
 				<img src="resources/images/pic2.jpg" height="130px"
-					width="160px"><br> <label class="myNameBtn">
+					width="160px"><br>
 					<div class="logdropdown">
 						<button onclick="logmyFunction()" class="logdropbtn">${UserInfo.userName }</button>
 						<div id="lognameDropdown" class="logdropdown-content">
-							<a href="#home">미니 홈피</a>
-							<a href="#bf">일촌 신청</a>
+							<a href="#" onclick = "openWin()">미니 홈피</a>
+							<a href="#bf">BF 신청</a>
 							<a href="#report">신고 하기</a>
 						</div>
 					</div>
@@ -188,8 +188,8 @@ display : inline-block;
 		location.href = "findUser.do";
 	}
 	 var openwin;
-	function openWin(){  
-	    openwin = window.open(" /LW/MyMiniHomeServlet?userId=promote7@naver.com","차영욱님의 미니홈피", "width = 1300, height = 750, scroll = no, toolbar = no, menubar = yes, location = no, resizable = no");  
+	function openWin(){
+	    openwin = window.open("minihome.do?userId=${UserInfo.userId}", 'win0', "width = 1300, height = 750, scroll = no, toolbar = no, menubar = yes, location = no, resizable = no");  
 	} 
 	
 	</script>
@@ -203,10 +203,10 @@ function logmyFunction() {
 
 window.onclick = function(event) {
   if (!event.target.matches('.logdropbtn')) {
-    var dropdowns = document.getElementsByClassName("logdropdown-content");
+    var logdropdowns = document.getElementsByClassName("logdropdown-content");
     var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
+    for (i = 0; i < logdropdowns.length; i++) {
+      var openDropdown = logdropdowns[i];
       if (openDropdown.classList.contains('logshow')) {
         openDropdown.classList.remove('logshow');
       }

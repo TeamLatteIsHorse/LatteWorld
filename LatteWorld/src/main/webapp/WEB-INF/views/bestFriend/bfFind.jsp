@@ -24,6 +24,7 @@
 	.dropdown-content {
 	  display: none;
 	  position: absolute;
+	  background : white;
 	  min-width: 160px;
 	  overflow: auto;
 	  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -45,39 +46,37 @@
 	
 	<!-- 로그인 한 회원만 게시물을 보기 위해서 다음과 같은 조건 추가 -->
 	<c:if test="${!empty UserInfo }">
-		<div id = "content">
-		<br>
-		<h1 align = "center">BF 찾기</h1>
-		
-		<div id = "searchArea" align = "center">
-			<c:if test="${!empty bfsc}">
-				<label>검색 조건</label>
-				<input id = "searchType" type = "hidden" value = "${bfsc.bfType }">
-				<select id = "searchCondition" name = "bfType">
-					<option>-----------</option>
-					<option value = "all">전체</option>
-					<option value = "id">아이디</option>
-					<option value = "name">이름</option>
-				</select>
-				<input type = "search" id = "searchValue" value = "${bfsc.bfValue }">
-				
-				<button onclick = "searchBoard()">검색하기</button>
-			</c:if>
-			<script type="text/javascript">	
-				$("#searchCondition").val($("#searchType").val());
-			</script>
-			<c:if test="${empty bfsc}">
-				<label>검색 조건</label>
-				<select id = "searchCondition" name = "bfType">
-					<option>-----------</option>
-					<option value = "all">전체</option>
-					<option value = "id">아이디</option>
-					<option value = "name">이름</option>
-				</select>
-				<input type = "search" id = "searchValue" name = "bfValue">
-				<button onclick = "searchBoard()">찾기</button>
-			</c:if>
-		</div>
+		<div class = "content">
+			<h1>BF 찾기</h1>
+			<div id = "searchArea">
+				<c:if test="${!empty bfsc}">
+					<label>검색 조건</label>
+					<input id = "searchType" type = "hidden" value = "${bfsc.bfType }">
+					<select id = "searchCondition" name = "bfType">
+						<option>-----------</option>
+						<option value = "all">전체</option>
+						<option value = "id">아이디</option>
+						<option value = "name">이름</option>
+					</select>
+					<input type = "search" id = "searchValue" value = "${bfsc.bfValue }">
+					
+					<button onclick = "searchBoard()">검색하기</button>
+				</c:if>
+				<script type="text/javascript">	
+					$("#searchCondition").val($("#searchType").val());
+				</script>
+				<c:if test="${empty bfsc}">
+					<label>검색 조건</label>
+					<select id = "searchCondition" name = "bfType">
+						<option>-----------</option>
+						<option value = "all">전체</option>
+						<option value = "id">아이디</option>
+						<option value = "name">이름</option>
+					</select>
+					<input type = "search" id = "searchValue" name = "bfValue">
+					<button onclick = "searchBoard()">찾기</button>
+				</c:if>
+			</div>
 		<script>
 			function searchBoard(){
 				var searchCondition = $("#searchCondition").val();
@@ -85,7 +84,7 @@
 				location.href = "search.do?bfType="+searchCondition+"&bfValue="+searchValue;
 			}
 		</script>
-			<table id = "bfFindTable" align = "center" width = "800" align = "center" border = "1px" cellspacing = "0">
+			<table id = "bfFindTable" width = "800" border = "1px" cellspacing = "0">
 				<tr>
 					<th>아이디</th>
 					<th>이름</th>
@@ -116,7 +115,7 @@
 			
 			<c:if test="${empty bfsc}">
 			<!-- 페이징 부분 -->		
-			<div id = "pagingArea" align = "center">
+			<div id = "pagingArea" >
 				<!-- [이전] -->
 				<c:if test = "${pi.currentPage <= 1 }">
 					[이전]&nbsp;

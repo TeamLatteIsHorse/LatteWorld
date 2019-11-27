@@ -52,7 +52,7 @@ public class UserController {
 		u = uService.selectUser(u);
 		model.addAttribute("UserInfo", u);
 		
-		return "common/myPage";
+		return "user/myPage";
 	}
 	
 	@RequestMapping(value = "update.do", method=RequestMethod.POST)
