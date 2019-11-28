@@ -29,10 +29,14 @@ public class HomeController {
 	
 	@RequestMapping("join.do")
 	public String join() {
-		return "common/userJoin";
+		return "user/memberJoin";
 	}
 	@RequestMapping("findUser.do")
 	public String findUser() {
-		return "common/findUser";
+		return "user/findUser";
+	}
+	@RequestMapping("bfFind.do")
+	public String findBF() {
+		return "bestFriend/bfFind";
 	}
 }

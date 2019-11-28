@@ -71,6 +71,7 @@ public class Message {
 		return "Message [messageNo=" + messageNo + ", sendId=" + sendId + ", receiveId=" + receiveId
 				+ ", messageContent=" + messageContent + ", messageStatus=" + messageStatus + ", eraseStatus="
 				+ eraseStatus + ", sendDate=" + sendDate + "]";
+
 	}
 	
 }

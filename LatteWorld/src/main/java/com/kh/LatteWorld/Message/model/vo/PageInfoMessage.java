@@ -8,6 +8,7 @@ public class PageInfoMessage {
 	private int startPage;
 	private int endPage;
 	
+
 	private int messageLimit;
 
 	public PageInfoMessage() {
@@ -85,6 +86,7 @@ public class PageInfoMessage {
 		return "PageInfo [currentPage=" + currentPage + ", listCount=" + listCount + ", pageLimit=" + pageLimit
 				+ ", maxPage=" + maxPage + ", startPage=" + startPage + ", endPage=" + endPage + ", messageLimit="
 				+ messageLimit + "]";
+
 	}
 	
 	

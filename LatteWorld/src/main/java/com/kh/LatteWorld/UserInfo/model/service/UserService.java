@@ -8,4 +8,10 @@ public interface UserService {
 
 	int insertMember(UserInfo u);
 
+	UserInfo selectUser(UserInfo u);
+
+	int updateUser(UserInfo u);
+
+	int checkIdDup(String id);
+
 }
