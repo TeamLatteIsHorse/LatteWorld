@@ -1,5 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//myb atis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace = "messageMapper">
-  
+<mapper namespace="messageMapper">
+
+	<resultMap type = "Message" id="messageResultSet">
+		<id property="messageNo" column="MESSAGENO"/>
+		<result property="sendId" column="SENDID"/>
+		<result property="receiveId" column="RECEIVEID"/>
+		<result property="messageContent" column="MESSAGECONTENT"/>
+		<result property="messageStatus" column="MESSAGESTATUS"/>
+		<result property="sendDate" column="SEND_DATE"/>
+	</resultMap>
+	
+	<select id="getListCountReceive" resultType="_int">
+		SELECT COUNT(*)
+		FROM MESSAGE
+		WHERE ERASESTATUS='N' AND RECEIVEID=#{receiveId}
+	</select>
+	
+	<select id="getListCountSend" resultType="_int">
+		SELECT COUNT(*)
+		FROM MESSAGE
+		WHERE SENDID=#{sendId}
+	</select>
+	
+	<select id="getListCountErase" resultType="_int">
+		SELECT COUNT(*)
+		FROM MESSAGE
+		WHERE ERASESTATUS='Y' AND RECEIVEID=#{receiveId}
+	</select>
+	
+	<select id="selectListReceive" resultMap="messageResultSet">
+		SELECT *
+		FROM MESSAGE
+		WHERE ERASESTATUS='N' RECEIVEID=#{receiveId}
+		ORDER BY MESSAGENO DESC
+	</select>
+	
+	<select id="selectListSend" resultMap="messageResultSet">
+		SELECT *
+		FROM MESSAGE
+		WHERE ERASESTATUS='N' SENDID=#{sendId}
+		ORDER BY MESSAGENO DESC
+	</select>
+	
+	<select id="selectListErase" resultMap="messageResultSet">
+		SELECT *
+		FROM MESSAGE
+		WHERE ERASESTATUS='Y' RECEIVEID=#{receiveId}
+		ORDER BY MESSAGENO DESC
+	</select>
 </mapper>

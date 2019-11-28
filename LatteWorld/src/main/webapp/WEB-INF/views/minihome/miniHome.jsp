@@ -98,7 +98,7 @@
    
 </style>
 </head>
-<body>
+<body onresize="parent.resizeTo(1420,950)" onload="parent.resizeTo(1420,950)" style="overflow-x:hidden; overflow-y:hidden;">
    <div class="skinArea">
       <div class="homepyArea">
          <div class="top-content">

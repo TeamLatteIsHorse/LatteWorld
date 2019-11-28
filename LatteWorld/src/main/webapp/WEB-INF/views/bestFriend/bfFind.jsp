@@ -89,31 +89,32 @@
 					<th>아이디</th>
 					<th>이름</th>
 				</tr>
-			<c:if test="${empty bfList }">
-				<tr>
-					<td colspan = "3" rowspan ="4">검색되는 유저가 없습니다.</td>
-				</tr>					
-			</c:if>
-
-				<c:forEach var = "b" items="${bfList }">
+				<c:if test="${empty bfList }">
 					<tr>
-						<td>
-							<div class="dropdown">
-								<button onclick="myFunction()" class="dropbtn">${b.userId }</button>
-								<div id="nameDropdown" class="dropdown-content">
-									<a href="#home">미니 홈피</a>
-									<c:url var = "bfapply" value = "bfApply.do">
-										<c:param name = "bfApplyId" value = ${UserInfo.userId }/>
-										<c:param name = "bfAppliedId" value = ${b.userId }/>
-									</c:url>
-									<a href="${bfapply }">일촌 신청</a>
-									<a href="#report">신고 하기</a>
+						<td colspan = "3" rowspan ="4">검색되는 유저가 없습니다.</td>
+					</tr>					
+				</c:if>
+				<c:if test="${!empty bfList }">
+					<c:forEach var = "b" items="${bfList }">
+						<tr>
+							<td>
+								<div class="dropdown">
+									<button onclick="myFunction()" class="dropbtn">${b.userId }</button>
+									<div id="nameDropdown" class="dropdown-content">
+										<a href="#home">미니 홈피</a>
+										<c:url var = 'bf' value = "bfApply.do">
+											<c:param name = "bfApplyId" value = "${UserInfo.userId }"/>
+											<c:param name = "bfAppliedId" value = "${b.userId }"/>
+										</c:url>
+										<a href="${bf }">일촌 신청</a>
+										<a href="#report">신고 하기</a>
+									</div>
 								</div>
-							</div>
-						</td>
-						<td>${b.userName }</td>
-					</tr>
-				</c:forEach>
+							</td>
+							<td>${b.userName }</td>
+						</tr>
+					</c:forEach>
+				</c:if>
 			</table>
 			
 			
@@ -226,7 +227,7 @@
 	<jsp:include page = "../common/footer.jsp"/>
 
 <script>
-
+	
 	function myFunction() {
 	  document.getElementById("nameDropdown").classList.toggle("show");
 	}

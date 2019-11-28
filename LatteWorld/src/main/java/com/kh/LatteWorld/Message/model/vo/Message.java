@@ -8,19 +8,21 @@ public class Message {
 	private String receiveId;
 	private String messageContent;
 	private String messageStatus;
-	private Date send_Date;
+	private String eraseStatus;
+	private Date sendDate;
 	public Message() {
 		super();
 	}
 	public Message(int messageNo, String sendId, String receiveId, String messageContent, String messageStatus,
-			Date send_Date) {
+			String eraseStatus, Date sendDate) {
 		super();
 		this.messageNo = messageNo;
 		this.sendId = sendId;
 		this.receiveId = receiveId;
 		this.messageContent = messageContent;
 		this.messageStatus = messageStatus;
-		this.send_Date = send_Date;
+		this.eraseStatus = eraseStatus;
+		this.sendDate = sendDate;
 	}
 	public int getMessageNo() {
 		return messageNo;
@@ -52,17 +54,24 @@ public class Message {
 	public void setMessageStatus(String messageStatus) {
 		this.messageStatus = messageStatus;
 	}
-	public Date getSend_Date() {
-		return send_Date;
+	public String getEraseStatus() {
+		return eraseStatus;
 	}
-	public void setSend_Date(Date send_Date) {
-		this.send_Date = send_Date;
+	public void setEraseStatus(String eraseStatus) {
+		this.eraseStatus = eraseStatus;
+	}
+	public Date getSendDate() {
+		return sendDate;
+	}
+	public void setSendDate(Date sendDate) {
+		this.sendDate = sendDate;
 	}
 	@Override
 	public String toString() {
 		return "Message [messageNo=" + messageNo + ", sendId=" + sendId + ", receiveId=" + receiveId
-				+ ", messageContent=" + messageContent + ", messageStatus=" + messageStatus + ", send_Date=" + send_Date
-				+ "]";
+				+ ", messageContent=" + messageContent + ", messageStatus=" + messageStatus + ", eraseStatus="
+				+ eraseStatus + ", sendDate=" + sendDate + "]";
+
 	}
 	
 }
