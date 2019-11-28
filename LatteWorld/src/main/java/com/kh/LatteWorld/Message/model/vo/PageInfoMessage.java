@@ -8,20 +8,20 @@ public class PageInfoMessage {
 	private int startPage;
 	private int endPage;
 	
-	private int boardLimit;
+	private int messageLimit;
 
 	public PageInfoMessage() {
 	}
 
 	public PageInfoMessage(int currentPage, int listCount, int pageLimit, int maxPage, int startPage, int endPage,
-			int boardLimit) {
+			int messageLimit) {
 		this.currentPage = currentPage;
 		this.listCount = listCount;
 		this.pageLimit = pageLimit;
 		this.maxPage = maxPage;
 		this.startPage = startPage;
 		this.endPage = endPage;
-		this.boardLimit = boardLimit;
+		this.messageLimit = messageLimit;
 	}
 
 	public int getCurrentPage() {
@@ -72,19 +72,19 @@ public class PageInfoMessage {
 		this.endPage = endPage;
 	}
 
-	public int getBoardLimit() {
-		return boardLimit;
+	public int getMessageLimit() {
+		return messageLimit;
 	}
 
-	public void setBoardLimit(int boardLimit) {
-		this.boardLimit = boardLimit;
+	public void setMessageLimit(int messageLimit) {
+		this.messageLimit = messageLimit;
 	}
 
 	@Override
 	public String toString() {
 		return "PageInfo [currentPage=" + currentPage + ", listCount=" + listCount + ", pageLimit=" + pageLimit
-				+ ", maxPage=" + maxPage + ", startPage=" + startPage + ", endPage=" + endPage + ", boardLimit="
-				+ boardLimit + "]";
+				+ ", maxPage=" + maxPage + ", startPage=" + startPage + ", endPage=" + endPage + ", messageLimit="
+				+ messageLimit + "]";
 	}
 	
 	

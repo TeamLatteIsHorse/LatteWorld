@@ -159,7 +159,7 @@ display : inline-block;
 							보기</a> <a href="#">신고하기</a>
 					</div>
 				</label>님 환영합니다 :)<br>
-				<button onclick = "">쪽지 보내기</button>
+				<button onclick = "location.href='receivelist.do'">쪽지 보내기</button>
 				<button	onclick="location.href='/LW/MyPageServlet?userId=promote7@naver.com'">마이
 					페이지</button>
 				<button onclick="location.href='/LW/LogoutServlet'">로그아웃</button>

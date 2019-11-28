@@ -17,10 +17,10 @@ public class Pagination {
 		int startPage;		// 현재 페이지에서 보여질 페이징 버튼의 시작 페이지
 		int endPage;		// 현재 페이지에서 보여질 페이징 버튼의 끝 페이지
 		
-		int boardLimit = 5; // 한 페이지에 보여질 게시글 갯수
+		int messageLimit = 20; // 한 페이지에 보여질 게시글 갯수
 		
 		/* maxPage = (int)((double)listCount/boardLimit + 0.8); */
-		maxPage = (int)((double)listCount/boardLimit + 0.9);
+		maxPage = (int)((double)listCount/messageLimit + 0.9);
 		// case 1 : listCount가 1일 때 maxPage는 1이 되어야 한다.
 		// case 2 : listCount가 5일 때 maxPage는 1이 되어야 한다.
 		// case 3 : listCount가 6일 때 maxPage는 2가 되어야 한다.(다음 페이지 정도까지 생각해 보자)
@@ -40,7 +40,7 @@ public class Pagination {
 		}
 		
 		pi = new PageInfoMessage(currentPage, listCount, pageLimit,
-				maxPage, startPage, endPage, boardLimit);
+				maxPage, startPage, endPage, messageLimit);
 		
 		return pi;
 		

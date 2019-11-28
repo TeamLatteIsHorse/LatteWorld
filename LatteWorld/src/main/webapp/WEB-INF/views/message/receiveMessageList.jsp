@@ -7,29 +7,37 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
+<style>
+
+</style>
 
 </head>
 <body>
-	<jsp:include page ="../common/mainMenuBar.jsp"/>
-	
-	<h1 align="center">보낸 쪽지함</h1>
-	
+<jsp:include page ="../common/mainMenuBar.jsp"/>
+<h1 align="center">받은 쪽지함</h1>
 	
 	
-		<table align="center" border="1" cellspacing="0" width="800" id="sendMessage">
+	
+		<table align="center" border="1" cellspacing="0" width="800" id="receiveMessage">
 		<tr>
 			<th><input type="checkbox" id="checkall"></th>
-			<th>받은사람</th>
+			<th>보낸사람</th>
 			<th>내용</th>
 			<th>날짜</th>
 		</tr>
-		<c:forEach var="s" items="${list }">
-		<input type="hidden" name="messageNo" value="${s.messageNo}"/>
+		<c:forEach var="r" items="${list }">
+		<input type="hidden" name="messageNo" value="${r.messageNo}"/>
 		<tr>
 			<td align="center"><input type="checkbox" class="chk" name="chk"></td>
-			<td align="center">${s.sendId }</td>
-			<td align="center">${s.content }</td>
-			<td align="center">${s.sendDate }</td>
+			<td align="center">${r.receiveId }</td>
+			<td align="center">
+				<c:url var="rdetail" value="receiveMessage.do">
+					<c:param name="messageNo" value="${r.messageNo }"/>
+					<c:param name="page" value="${pi.currentPage }"/>
+					<a href="${receiveMessage }">${r.content }</a>
+				</c:url>
+			</td>
+			<td align="center">${r.sendDate }</td>
 		</tr>
 		</c:forEach>
 		
@@ -40,10 +48,10 @@
 				</c:if>
 				
 				<c:if test="${pi.currenPage > 1 }">
-					<c:url var = "slistBack" value="/sendlist.do">
+					<c:url var = "rlistBack" value="/receivelist.do">
 						<c:param name="page" value="${pi.currendPage - 1 }"/>
 					</c:url>
-					<a href="${slistBack }">이전</a>
+					<a href="${rlistBack }">이전</a>
 				</c:if>
 				
 				<c:forEach var = "p" begin="${pi.startPage }" end="${pi.endPage }">
@@ -52,10 +60,10 @@
 					</c:if>
 					
 					<c:if test="${p ne pi.currentPage }">
-						<c:url var="slistCheck" value="sendlist.do">
+						<c:url var="rlistCheck" value="receivelist.do">
 							<c:param name="page" value="${p }"/>
 						</c:url>
-						<a href="${slistCheck }">${p }</a>
+						<a href="${rlistCheck }">${p }</a>
 					</c:if>
 				</c:forEach>
 				<c:if test="${pi.currentPage == pi.maxPage }">
@@ -63,10 +71,10 @@
 	 				</c:if>
 	 				
 	 				<c:if test="${pi.currentPage < pi.maxPage }">
-	 					<c:url var="slistEnd" value="slist.do">
+	 					<c:url var="rlistEnd" value="rlist.do">
 	 						<c:param name="page" value="${pi.currentPage + 1 }"/>
 	 					</c:url>
-	 					<a href="${slistEnd }">&nbsp;[다음]</a>
+	 					<a href="${rlistEnd }">&nbsp;[다음]</a>
 	 				</c:if>
 			</td>
 		</tr>
@@ -76,6 +84,7 @@
 		</tr>
 		</table>	
 	
+		
 	
 	
 	
@@ -100,49 +109,13 @@
 			}
 		});
 		
+		
+		
+		
+		
+		
+		
 	</script>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	<jsp:include page="../common/footer.jsp"/>
 </body>
