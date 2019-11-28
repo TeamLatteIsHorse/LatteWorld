@@ -10,4 +10,6 @@ public interface BestFriendService {
 
 	ArrayList<UserInfo> searchUser(bfSearchCondition bfsc);
 
+	int checkBF(BestFriend bf);
+
 }

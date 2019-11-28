@@ -6,7 +6,7 @@
 	<select id="searchUser" parameterType="bfSearchCondition" resultType="UserInfo">
 		SELECT *
 		FROM USERINFO
-		WHERE USERSTATUS ='N'		
+		WHERE USERSTATUS ='N'
 		<if test ="bfId != null">
 			AND USERID LIKE '%'||#{bfId}||'%'
 		</if>
@@ -17,7 +17,11 @@
 			AND (USERID LIKE '%'|| #{bfName}|| '%' OR USERID LIKE '%'||#{bfId}||'%') 
 		</if>
 	</select>
-
+	<select id="checkBF" parameterType="BestFriend" resultType="_int">
+		SELECT COUNT(*)
+		FROM BESTFRIEND
+		WHERE BFAPPLYID = #{bfApplyId} AND BFAPPLIEDID = #{bfAppliedId} AND BFSTATUS = 'Y'
+	</select>
 
 
 </mapper>

@@ -103,7 +103,7 @@
       <div class="homepyArea">
          <div class="top-content">
             <div class="today">투데이</div>
-            <div class="homepy-title">${UserInfo.userName }님의 미니홈피</div>
+            <div class="homepy-title">${owner.userName }님의 미니홈피</div>
          </div>
            <div id="content1" class="center-content">
             <div class="contentsub">프로필</div>

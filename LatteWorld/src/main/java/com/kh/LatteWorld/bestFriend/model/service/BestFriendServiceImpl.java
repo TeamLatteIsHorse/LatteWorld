@@ -21,4 +21,10 @@ public class BestFriendServiceImpl implements BestFriendService{
 		
 		return bfDao.searchUser(bfsc);
 	}
+
+	@Override
+	public int checkBF(BestFriend bf) {
+
+		return bfDao.checkBf(bf);
+	}
 }

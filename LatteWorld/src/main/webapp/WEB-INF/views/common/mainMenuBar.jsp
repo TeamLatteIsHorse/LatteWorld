@@ -148,6 +148,23 @@ display : inline-block;
 						</div>
 					</div>
 					님 환영합니다 :)
+					<script>
+						function logmyFunction() {
+						  document.getElementById("lognameDropdown").classList.toggle("logshow");
+						}
+						window.onclick = function(event) {
+						  if (!event.target.matches('.logdropbtn')) {
+						    var logdropdowns = document.getElementsByClassName("logdropdown-content");
+						    var i;
+						    for (i = 0; i < logdropdowns.length; i++) {
+						      var openDropdown = logdropdowns[i];
+						      if (openDropdown.classList.contains('logshow')) {
+						        openDropdown.classList.remove('logshow');
+						      }
+						    }
+						  }
+						}
+					</script>
 				<button onclick = "">쪽지 보내기</button>
 				<c:url var = "mypage" value = "mypage.do">
 					<c:param name = "userId" value = "${UserInfo.userId }"/>
@@ -194,26 +211,7 @@ display : inline-block;
 	
 	</script>
 	
-<script>
 
-	function logmyFunction() {
-	  document.getElementById("lognameDropdown").classList.toggle("logshow");
-	}
-	
-	
-	window.onclick = function(event) {
-	  if (!event.target.matches('.logdropbtn')) {
-	    var logdropdowns = document.getElementsByClassName("logdropdown-content");
-	    var i;
-	    for (i = 0; i < logdropdowns.length; i++) {
-	      var openDropdown = logdropdowns[i];
-	      if (openDropdown.classList.contains('logshow')) {
-	        openDropdown.classList.remove('logshow');
-	      }
-	    }
-	  }
-	}
-</script>
 
 </body>
 </html>

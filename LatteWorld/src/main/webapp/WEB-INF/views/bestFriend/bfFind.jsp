@@ -96,28 +96,59 @@
 				</c:if>
 				<c:if test="${!empty bfList }">
 					<c:forEach var = "b" items="${bfList }">
-						<tr>
-							<td>
-								<div class="dropdown">
-									<button onclick="myFunction()" class="dropbtn">${b.userId }</button>
-									<div id="nameDropdown" class="dropdown-content">
-										<a href="#home">미니 홈피</a>
-										<c:url var = 'bf' value = "bfApply.do">
-											<c:param name = "bfApplyId" value = "${UserInfo.userId }"/>
-											<c:param name = "bfAppliedId" value = "${b.userId }"/>
-										</c:url>
-										<a href="${bf }">일촌 신청</a>
-										<a href="#report">신고 하기</a>
+						<c:if test="${b.userId ne UserInfo.userId }">
+							<tr>
+								<td>
+									<div class="dropdown">
+										<button onclick="myFunction('${b.userId}');" class="dropbtn">${b.userId }</button>
+										<div id="nameDropdown${b.userId}" class="dropdown-content">
+											<c:url var = "miniHome" value = "visitHome.do">
+												<c:param name = "userId" value = "${b.userId }"/>
+											</c:url>
+											<c:url var = "bfApply" value = "bfApply.do">
+												<c:param name = "bfApplyId" value = "${UserInfo.userId }"/>
+												<c:param name = "bfAppliedId" value = "${b.userId }"/>
+												<c:param name = "bfAppliedName" value = "${b.userName }"/>
+											</c:url>
+											<a href="#"	 onclick = "window.open('${miniHome }', 'win0', 'width = 1420, height = 850, scroll = no, toolbar = no, menubar = yes, location = no, resizable = no')">미니 홈피</a>
+											<a href="#" onclick = "window.open('${bfApply }', 'win0', 'width = 400, height = 400, scroll = no, toolbar = no, menubar = yes, location = no, resizable = no')">일촌 신청</a>
+											<a href="#report">신고 하기</a>
+										</div>
 									</div>
-								</div>
-							</td>
-							<td>${b.userName }</td>
-						</tr>
+								</td>
+								<td>${b.userName }</td>
+							</tr>
+						</c:if>
+						<script>
+							
+							function myFunction(id) {	
+							  	
+							  	if(!document.getElementById("nameDropdown"+id).classList.contains("show")){
+							  		for(var i =0 ; i< $(".dropdown-content").length; i++){	
+								  	  	$(".dropdown-content").get(i).classList.remove("show");
+								  	}
+									document.getElementById("nameDropdown"+id).classList.add("show");
+							  	}else
+							  		document.getElementById("nameDropdown"+id).classList.remove("show");
+							}
+							window.onclick = function(event) {
+							  if (!event.target.matches('.dropbtn')) {
+							    var dropdowns = document.getElementsByClassName("dropdown-content");
+							    var i;
+							    for (i = 0; i < dropdowns.length; i++) {
+							      var openDropdown = dropdowns[i];
+							      if (openDropdown.classList.contains('show')) {
+							        openDropdown.classList.remove('show');
+							      }
+							    }
+							  }
+							}
+						</script>
 					</c:forEach>
-				</c:if>
-			</table>
+				
 			
 			
+			<tr><td colspan = "2">
 			<c:if test="${empty bfsc}">
 			<!-- 페이징 부분 -->		
 			<div id = "pagingArea" >
@@ -140,7 +171,6 @@
 						<c:url var="blistCheck" value = "selectList.bo">
 							<c:param name = "currentPage" value = "${p }"/>
 						</c:url>
-						<%-- <a href = "${contextPath }/selectList.bo?currentPage=${p}">${p }</a> --%>
  						<a href = "${blistCheck }">${p }</a>
 					</c:if>
 				</c:forEach>
@@ -201,9 +231,10 @@
 				</c:if>
 			</div>
 			</c:if>
-
-			
-			
+			</td>
+			</tr>
+			</c:if>
+			</table>
 			<!--	게시글 상세 보기 -->
 			<script type="text/javascript">
 				$(function(){
@@ -226,27 +257,7 @@
 	</c:if>
 	<jsp:include page = "../common/footer.jsp"/>
 
-<script>
-	
-	function myFunction() {
-	  document.getElementById("nameDropdown").classList.toggle("show");
-	}
-	
-	
-	window.onclick = function(event) {
-	  if (!event.target.matches('.dropbtn')) {
-	    var dropdowns = document.getElementsByClassName("dropdown-content");
-	    var i;
-	    for (i = 0; i < dropdowns.length; i++) {
-	      var openDropdown = dropdowns[i];
-	      if (openDropdown.classList.contains('show')) {
-	        openDropdown.classList.remove('show');
-	      }
-	    }
-	  }
-	}
 
-</script>
 	
 </body>
 </html>
