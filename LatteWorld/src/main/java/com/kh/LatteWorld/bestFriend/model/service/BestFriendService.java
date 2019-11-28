@@ -12,4 +12,6 @@ public interface BestFriendService {
 
 	int checkBF(BestFriend bf);
 
+	int insertBF(BestFriend bf);
+
 }

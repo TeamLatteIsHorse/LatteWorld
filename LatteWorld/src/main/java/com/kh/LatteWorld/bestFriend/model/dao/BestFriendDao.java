@@ -25,4 +25,9 @@ public class BestFriendDao {
 
 		return sqlSession.selectOne("bestfriendMapper.checkBF", bf);
 	}
+
+	public int insertBf(BestFriend bf) {
+
+		return sqlSession.insert("bestfriendMapper.insertBF", bf);
+	}
 }

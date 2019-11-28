@@ -8,7 +8,7 @@
 <script src="http://code.jquery.com/jquery-3.3.1.min/js"></script>
 <title>Insert title here</title>
 </head>
-<body>
+<body onresize="parent.resizeTo(450,450)" onload="parent.resizeTo(450,450)" style="overflow-x:hidden; overflow-y:hidden;">
 	<div align = "center">
 		<h2 align = "center">일촌 신청하기</h2>
 		<br>
@@ -17,13 +17,15 @@
 		<span  align = "center">${bfName }님께 Best Friend를 신청 합니다.</span>
 		<br>
 		BestFriend가 되고싶어요!
-		<form>
-			<textarea align = "center" rows="3" cols="40" placeholder = "상대방에게 전할 메세지를 넣어주세요"></textarea>
+		<form action = "insertBF.do" method = "post">
+			<input type = "hidden" name = "bfApplyId" value = "${bf.bfApplyId }">
+			<input type = "hidden" name = "bfAppliedId" value = "${bf.bfAppliedId }">
+			<textarea name = "bfComments" align = "center" rows="3" cols="40" placeholder = "상대방에게 전할 메세지를 넣어주세요"></textarea>
 			<br>
 			<span  align = "center">상대방이 동의하면 BestFriend가 됩니다.</span>
 			<br>
 			<hr>
-			<button>보내기</button>&nbsp;<button onclick = "self.close()">취소</button>
+			<button type = "submit" onclick = "self.close()">보내기</button>&nbsp;<button type = "button" onclick = "self.close()">취소</button>
 		</form>
 	</div>
 	

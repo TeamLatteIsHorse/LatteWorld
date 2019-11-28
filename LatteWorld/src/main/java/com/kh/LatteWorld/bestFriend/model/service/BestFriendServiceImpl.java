@@ -27,4 +27,10 @@ public class BestFriendServiceImpl implements BestFriendService{
 
 		return bfDao.checkBf(bf);
 	}
+
+	@Override
+	public int insertBF(BestFriend bf) {
+
+		return bfDao.insertBf(bf);
+	}
 }

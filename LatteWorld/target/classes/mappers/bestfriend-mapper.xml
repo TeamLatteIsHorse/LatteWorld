@@ -22,6 +22,9 @@
 		FROM BESTFRIEND
 		WHERE BFAPPLYID = #{bfApplyId} AND BFAPPLIEDID = #{bfAppliedId} AND BFSTATUS = 'Y'
 	</select>
-
+	<insert id = "insertBF" parameterType = "BestFriend">
+		INSERT INTO BESTFRIEND
+		VALUES(SEQ_BFNO.NEXTVAL, #{bfApplyId}, #{bfAppliedId}, DEFAULT, #{bfComments}, SYSDATE, NULL)
+	</insert>
 
 </mapper>

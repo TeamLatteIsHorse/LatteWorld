@@ -1,7 +1,10 @@
 package com.kh.LatteWorld.bestFriend.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,19 +52,36 @@ public class BestFriendController {
 	}
 	
 	@RequestMapping("bfApply.do")
-	public String applyBF(BestFriend bf, Model model, HttpSession session,
-						 String bfAppliedName) {
+	public String applyBF(BestFriend bf, Model model, HttpSession session, HttpServletResponse response,
+						 String bfAppliedName) throws IOException {
 		UserInfo u = (UserInfo)session.getAttribute("UserInfo");
 		
 		int result = bfService.checkBF(bf);
 		
 		if(result > 0) {
-			model.addAttribute("msg", "이미 BestFriend 입니다.");
+			PrintWriter out = response.getWriter();
+			out.print("<script> alert('이미 bestFriend입니다.'); </script>");
+			out.flush();
+			out.close();
+			return "redirect:search.do";
 		}else {
 			model.addAttribute("bf", bf);
 			model.addAttribute("UserInfo", u);
 			model.addAttribute("bfName", bfAppliedName);
+			return "bestFriend/applyBf";
 		}
-		return "bestFriend/applyBf";
+		
 	}
+	
+	@RequestMapping("insertBF.do")
+	public void insertBF(BestFriend bf, HttpServletResponse response) throws IOException {
+		int result = bfService.insertBF(bf);
+		PrintWriter out = response.getWriter();
+		if(result >0) {
+			out.print("<script> alert('이미 친구 신청이 완료 된 상태입니다.');");
+		}else {
+			out.print("<script> alert('친구 신청이 완료 되었습니다.');");
+		}
+	}
+	
 }
