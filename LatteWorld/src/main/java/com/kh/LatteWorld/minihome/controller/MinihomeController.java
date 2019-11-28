@@ -26,7 +26,7 @@ public class MinihomeController {
 		UserInfo user = uService.loginUser(u);
 		model.addAttribute("UserInfo",user);
 		
-		return "minihome/minihomeMain";
+		return "minihome/miniHome";
 	}
 	
 }

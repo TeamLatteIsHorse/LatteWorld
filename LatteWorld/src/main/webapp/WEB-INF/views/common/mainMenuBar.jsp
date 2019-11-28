@@ -189,7 +189,7 @@ display : inline-block;
 	}
 	 var openwin;
 	function openWin(){
-	    openwin = window.open("minihome.do?userId=${UserInfo.userId}", 'win0', "width = 1300, height = 750, scroll = no, toolbar = no, menubar = yes, location = no, resizable = no");  
+	    openwin = window.open("minihome.do?userId=${UserInfo.userId}", 'win0', "width = 1420, height = 850, scroll = no, toolbar = no, menubar = yes, location = no, resizable = no");  
 	} 
 	
 	</script>
