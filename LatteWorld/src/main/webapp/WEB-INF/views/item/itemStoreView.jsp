@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<script src = "http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <style>
 	.content {
 	    margin-left: 423px;
@@ -117,10 +117,12 @@
 				<button>검색</button>
 			</div>
 		</div>
-<h2>아이템샵</h2>		
+<h2>아이템샵</h2>	
 		<div id = "ItemStore">
 			<div style = "width : 1300px; height : 470px;">
+			
 				<c:forEach var = "iList" items = "${itemList}">
+					
 					<div class = "itemArea">
 						<div class = "itemImg">
 							<img src="${contextPath}/resources/itemImages/${iList.itemLink}">
@@ -129,10 +131,29 @@
 							[${iList.itemCategory}]
 							${iList.itemName}<br>
 							가격 : 잣 ${iList.price}개
-						</p>				
-						<button>구매하기</button>&nbsp;
-						<button>선물하기</button>&nbsp;
-						<button onclick = "kipItem();">찜하기</button>
+						</p>
+						<%-- <c:if test="${!empty UserInfo}"> --%>
+							<c:url var = "buyItem" value = "buyItem.do">
+								<c:param name="itemNo" value = "${iList.itemNo}"/>
+							</c:url>
+							<button onclick = "location.href = '${buyItem}'">구매하기</button>&nbsp;
+							
+							<c:url var = "presentItem" value = "presentItem.do">
+								<c:param name="itemNo" value = "${iList.itemNo}"/>
+							</c:url>
+							<button onclick = "location.href = '${presentItem}'">선물하기</button>&nbsp;
+							
+							<input type = "hidden" id = "hiddemItemNo" value = "${iList.itemNo}">
+							<button id = "kip" class= "kipItem">찜하기</button>
+							<!-- 구매, 선물은 이 방식으로 해도되는데 찜하기는 ajax이용해야되서 script에서 값 받아줘야됨.... -->
+						<%-- </c:if> --%>
+						
+						<%-- <c:if test="${empty UserInfo}">
+							<button onclick = "login()">구매하기</button>&nbsp;
+							<button onclick = "login()">선물하기</button>&nbsp;
+							<button onclick = "login()">찜하기</button>
+						</c:if> --%>
+						
 					</div>
 				</c:forEach>
 			</div>	
@@ -190,38 +211,21 @@
 			</div>
 		</div>
 	</div>
-	
-	<input id = "hiddenid" type = "hidden" value = "${UserInfo.userId}">
 	<script>
-	
-	function kipItem(){
-		var loginUser = $("#hiddenid").val();
-
-		if(loginUser == null){
-			alert("로그인이 필요합니다!!");
-		}else{
-			var check = confirm("추가할래?");
-			if(check == true){
-				alert("성공!");
-			}
+		function login(){
+			alert("로그인이 필요합니다!");
 		}
+
+		$(function(){
+			$(".kipItem").click(function(){
+				var itemNo = $(this).parents().find("input[id='hiddemItemNo']").val();
+				
+				console.log(itemNo);
+			})
+		});
 		
-		
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	</script>
-	
+
 	<jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

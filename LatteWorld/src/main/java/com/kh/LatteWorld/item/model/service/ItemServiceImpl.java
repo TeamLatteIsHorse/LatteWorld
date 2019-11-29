@@ -32,4 +32,10 @@ public class ItemServiceImpl implements ItemService{
 		
 		return (ArrayList)itemDao.selectBestItemList(itemCategory);
 	}
+
+	@Override
+	public ItemStore buyItem(int itemNo) {
+
+		return itemDao.buyItem(itemNo);
+	}
 }

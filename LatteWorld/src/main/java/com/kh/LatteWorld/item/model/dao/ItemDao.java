@@ -34,4 +34,9 @@ public class ItemDao {
 
 		return (ArrayList)sqlSession.selectList("itemMapper.selectBestItemList", itemCategory);
 	}
+
+	public ItemStore buyItem(int itemNo) {
+
+		return sqlSession.selectOne("itemMapper.buyItem",itemNo);
+	}
 }

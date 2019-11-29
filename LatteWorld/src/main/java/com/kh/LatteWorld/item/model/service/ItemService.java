@@ -13,4 +13,6 @@ public interface ItemService {
 
 	ArrayList<ItemStore> selectBestItemList(String itemCategory);
 
+	ItemStore buyItem(int itemNo);
+
 }

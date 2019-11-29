@@ -55,4 +55,21 @@ public class ItemController {
 		
 		return mv;
 	}
+	@RequestMapping("buyItem.do")
+	public ModelAndView buyItem(int itemNo, ModelAndView mv) {
+		
+		ItemStore item = itemService.buyItem(itemNo);
+		
+		if(item == null) {
+			throw new lwException("구매하기 페이지 이동 실패!");
+		}else {
+			mv.addObject("item",item);
+			mv.setViewName("item/BuyItemView");
+		}
+		
+		return mv;
+	}
+	
+	
+	
 }

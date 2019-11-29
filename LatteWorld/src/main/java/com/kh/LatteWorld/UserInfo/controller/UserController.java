@@ -1,6 +1,8 @@
 package com.kh.LatteWorld.UserInfo.controller;
 
-import javax.servlet.http.HttpSession;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.kh.LatteWorld.exception.lwException;
 import com.kh.LatteWorld.UserInfo.model.service.UserService;
 import com.kh.LatteWorld.UserInfo.model.vo.UserInfo;
+import com.kh.LatteWorld.exception.lwException;
 
 @SessionAttributes("UserInfo")
 @Controller
@@ -47,19 +49,28 @@ public class UserController {
 		return "home";
 	}
 	
+	@RequestMapping("mypage.do")
+	public String userMypage(UserInfo u, Model model) {
+		u = uService.selectUser(u);
+		model.addAttribute("UserInfo", u);
+		
+		return "user/myPage";
+	}
+	
+	@RequestMapping(value = "update.do", method=RequestMethod.POST)
+	public String userUpdate(UserInfo u, Model model) {
+		
+		int result = uService.updateUser(u);
+		
+		
+		return "home";
+	}
+	
 	@RequestMapping(value = "join.do", method = RequestMethod.POST)
-	public String userJoin(UserInfo u, Model model,
-							@RequestParam("email1") String email1,
-							@RequestParam("email2") String email2) {
-		
+	public String userJoin(UserInfo u, Model model) {
 		String encPwd =  bcryptPasswordEncoder.encode(u.getUserPwd());
+		u.setUserPwd(encPwd);
 
-		u.setUserPwd(encPwd);	// 패스워드 암호화 넣기
-		String userId = email1 + email2;
-
-		u.setUserId(userId);	// 유저 아이디는 email합친것들
-		
-		u.setMinihomeCode(email1);
 		int result = uService.insertMember(u);
 		
 		if(result >0) {
@@ -67,6 +78,13 @@ public class UserController {
 		}else {
 			throw new lwException("회원 가입 실패!");
 		}
+	}
+	
+	@RequestMapping("dupid.do")
+	public void idDuplicateCheck(HttpServletResponse response, String userId) throws IOException {
+		boolean isUsable = uService.checkIdDup(userId) == 0? true : false;
+		
+		response.getWriter().print(isUsable);
 	}
 	
 }

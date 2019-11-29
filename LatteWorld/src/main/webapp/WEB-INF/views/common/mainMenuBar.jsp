@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="http://code.jquery.com/jquery-3.3.1.min/js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
@@ -19,7 +20,6 @@ body {
 	margin: 0;
 	font-family: Arial, Helvetica, sans-serif;
 }
-/* Style the top navigation bar */
 .topnav {
 	padding-left: 200px;
 	padding-top: 50px;
@@ -28,8 +28,6 @@ body {
 	height: 144px;
 	min-width : 1000px;
 }
-
-/* Style the topnav links */
 .topnav a {
 	float: left;
 	display: block;
@@ -38,8 +36,6 @@ body {
 	padding: 14px 16px;
 	text-decoration: none;
 }
-
-/* Change color on hover */
 .topnav a:hover {
 	background-color: white;
 	color: black;
@@ -49,7 +45,6 @@ div#topMenu {
     width: 87%;
     min-width: 1000px;
 }
-/* Style the side navigation */
 .sidenav {
     padding-left: 200px;
     padding-top : 4px;
@@ -61,21 +56,6 @@ div#topMenu {
     background-color: white;
     overflow-x: hidden;
 }
-/* Side navigation links */
-.sidenav a {
-	color: white;
-	padding: 16px;
-	text-decoration: none;
-	display: block;
-}
-
-/* Change color on hover */
-.sidenav a:hover {
-	background-color: white;
-	color: black;
-}
-
-/* Style the content */
 .content {
     padding-left: 423px;
     padding-top: 4px;
@@ -89,28 +69,36 @@ div#topMenu {
 #topMenu *{
 display : inline-block;
 }
-/* drop down 시작 */
-.myName {
-  position: relative;
-  display: inline-block;
-}
-.myName-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
 
-.myName-content a {
-  color: black;
-  text-decoration: none;
-  display: block;
-}
-.myName-content a:hover {background-color: #ddd;}
+/* 이름 클릭 드롭박스 */
+	.logdropbtn {
+	  border: none;
+	  cursor: pointer;
+	}
 
-.myNameBtn:hover .myName-content {display: block;}
+	.logdropdown {
+  		position: relative;
+  		display: inline-block;
+	}
+
+	.logdropdown-content {
+	  display: none;
+	  background : white;
+	  position: absolute;
+	  min-width: 160px;
+	  overflow: auto;
+	  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	  z-index: 1;
+	}
+
+	.logdropdown-content a {
+	  padding: 12px 16px;
+	  text-decoration: none;
+	  display: block;
+	}
+
+	.logshow {display: block;}
+	
 </style>
 </head>
 <body>
@@ -118,20 +106,20 @@ display : inline-block;
 	<div class="topnav">
 		<div id="topMenu">
 			<img id="mainLogo" width="80px" height="80px" src="resources/images/MainLogo.jpg" onclick="location.href ='home.do'">
+
 			<div id ="link">
 				<a href="#"	onClick="javascript:openWin()">미니홈피</a>
 				<a>일촌 신청하기</a>
 				<c:url var="itemStoreList" value = "itemStoreList.do"></c:url>
 				<a href = "${itemStoreList}">선물가게</a>
 			</div>
+
 			<input type="button" value="BGM 상점">
 		</div>
 	</div>
 
 	<div class="sidenav">
-		<div id="leftLoginBox">| LATTE WORLD</div>
-
-		
+		<div id="leftLoginBox">LATTE WORLD</div>
 		<c:if test="${empty sessionScope.UserInfo }">
 			<div id = "leftLogin">
 				<form action ="login.do" method = "post">
@@ -148,34 +136,43 @@ display : inline-block;
 						</tr>
 					</table>
 					<div id = "findZone">
-						? <label id ="findIdPw" onclick = "find()">이메일 / 비밀번호 찾기</label><br>
-						? <label id ="join" onclick = "register()">회원 가입하기</label>
+						<label id ="findIdPw" onclick = "find()">이메일 / 비밀번호 찾기</label><br>
+						<label id ="join" onclick = "register()">회원 가입하기</label>
 					</div>
 				</form>
 			</div>
 		</c:if>
 		<c:if test = "${!empty sessionScope.UserInfo}">
 			<div id="leftLogin">
-				<img src="resources/images/pic2.jpg" height="130px"
-					width="160px"><br> <label class="myNameBtn">
-					${UserInfo.userName}
-					<div class="myName-content">
-						<a href="#" onClick="javascript:openWin()">내 미니홈피</a> <a href="#">일촌
-							보기</a> <a href="#">신고하기</a>
+				<img src="resources/images/pic2.jpg" height="130px" width="160px"><br>
+					<div class="logdropdown">
+						<button onclick="logmyFunction()" class="logdropbtn">${UserInfo.userName }</button>
+						<div id="lognameDropdown" class="logdropdown-content">
+							<a href="#" onclick = "openWin()">미니 홈피</a>
+							<a href="#bf">BF 신청</a>
+							<a href="#report">신고 하기</a>
+						</div>
 					</div>
-				</label>님 환영합니다 :)<br>
-				<button	onclick="location.href='/LW/MyPageServlet?userId=promote7@naver.com'">마이
-					페이지</button>
-					<c:url var = "logout" value = "logout.do"></c:url>
-				<button onclick="location.href = '${logout}'">로그아웃</button>
+					님 환영합니다 :)
+				<button onclick = "">쪽지 보내기</button>
+				<c:url var = "mypage" value = "mypage.do">
+					<c:param name = "userId" value = "${UserInfo.userId }"/>
+				</c:url>
+				<button	onclick = "location.href = '${mypage}'">마이페이지</button>
+				<button onclick="location.href ='logout.do'">로그아웃</button>
 			</div>
 		</c:if>	
 		
 		<div id="leftMenuBar">
 			<div id="leftMenus">
-				<p>일촌 신청하기</p>
+			<c:if test = "${!empty sessionScope.UserInfo}">
+				<c:url var = "findBF" value = "bfFind.do">
+					<c:param name = "userId" value = "${UserInfo.userId }"/>
+				</c:url>
+			</c:if>
+				<a onclick = "location.href='${findBF }'">BF 찾기</a>
 				<p>내 미니홈피</p>
-				<p>내 일촌 보기</p>
+				<p>내 BF 보기</p>
 				<p>공지사항</p>
 				<p>고객센터</p>
 			</div>
@@ -197,11 +194,32 @@ display : inline-block;
 		location.href = "findUser.do";
 	}
 	 var openwin;
-	function openWin(){  
-	    openwin = window.open(" /LW/MyMiniHomeServlet?userId=promote7@naver.com","차영욱님의 미니홈피", "width = 1300, height = 750, scroll = no, toolbar = no, menubar = yes, location = no, resizable = no");  
+	function openWin(){
+	    openwin = window.open("minihome.do?userId=${UserInfo.userId}", 'win0', "width = 1300, height = 750, scroll = no, toolbar = no, menubar = yes, location = no, resizable = no");  
 	} 
 	
 	</script>
+	
+	<script>
 
+function logmyFunction() {
+  document.getElementById("lognameDropdown").classList.toggle("logshow");
+}
+
+
+window.onclick = function(event) {
+  if (!event.target.matches('.logdropbtn')) {
+    var logdropdowns = document.getElementsByClassName("logdropdown-content");
+    var i;
+    for (i = 0; i < logdropdowns.length; i++) {
+      var openDropdown = logdropdowns[i];
+      if (openDropdown.classList.contains('logshow')) {
+        openDropdown.classList.remove('logshow');
+      }
+    }
+  }
+}
+</script>
+	
 </body>
 </html>

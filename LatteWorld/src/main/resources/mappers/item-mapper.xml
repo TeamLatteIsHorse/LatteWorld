@@ -35,4 +35,10 @@
 	WHERE ROWNUM <= 3
 	]]>
 	</select>
+	
+	<select id="buyItem" parameterType="_int" resultMap="ItemResultSet">
+		SELECT *
+		FROM ITEMSTORE
+		WHERE ITEMNO=#{itemNo}
+	</select>
 </mapper>
