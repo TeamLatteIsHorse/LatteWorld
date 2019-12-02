@@ -2,8 +2,11 @@ package com.kh.LatteWorld.item.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.LatteWorld.UserInfo.model.vo.UserInfo;
 import com.kh.LatteWorld.item.model.vo.ItemPageInfo;
 import com.kh.LatteWorld.item.model.vo.ItemStore;
+import com.kh.LatteWorld.item.model.vo.KipItem;
+import com.kh.LatteWorld.item.model.vo.UserItemList;
 
 public interface ItemService {
 
@@ -14,5 +17,28 @@ public interface ItemService {
 	ArrayList<ItemStore> selectBestItemList(String itemCategory);
 
 	ItemStore buyItem(int itemNo);
+
+	ItemStore selectOneItem(int itemNo);
+
+	int insertkipItem(ItemStore item);
+
+	int insertUser(String userId);
+
+	int getkipItemListCount(String userId);
+
+	ArrayList<KipItem> selectKipItemlist(String userId);
+
+	ArrayList<ItemStore> selectAllItemList();
+
+	int insertItemList(String userId);
+
+	int insertItemNo(int itemNo);
+
+	int updateUserPoint(UserInfo loginUser);
+
+	ArrayList<UserItemList> selectUserItemList(String userId);
+
+	int selectUserPoint(String userId);
+
 
 }

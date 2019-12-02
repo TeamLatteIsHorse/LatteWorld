@@ -100,16 +100,30 @@
 						${bis.itemName}<br>
 						가격 : 잣 ${bis.price}개
 					</p>
-					<button>구매하기</button>&nbsp;
-					<button>선물하기</button>&nbsp;
-					<button>찜하기</button>
+					<c:if test="${!empty UserInfo}">
+						<c:url var = "buyItemView" value = "buyItemView.do">
+							<c:param name="itemNo" value = "${bis.itemNo}"/>
+						</c:url>
+						<button class = "buyItem" value = "${bis.itemNo}" onclick = "location.href = '${buyItemView}'">구매하기</button>&nbsp;
+						<c:url var = "presentItem" value = "presentItem.do">
+							<c:param name="itemNo" value = "${bis.itemNo}"/>
+						</c:url>
+						<button onclick = "location.href = '${presentItem}'">선물하기</button>&nbsp;
+							
+						<button class= "kipItem" value = "${bis.itemNo}">찜하기</button>	
+					</c:if>
+					
+					<c:if test="${empty UserInfo}">
+						<button onclick = "login()">구매하기</button>&nbsp;
+						<button onclick = "login()">선물하기</button>&nbsp;
+						<button onclick = "login()">찜하기</button>
+					</c:if>
 				</div>
 			</c:forEach>
 			
 			<div id="hitItemSearch" style = "margin-left : 10px;">
 				<select id="searchItem">
-					<option value="all">전체검색</option>
-					<option value="miniBackground">미니미배경</option>
+					<option value="miniBackground" selected>미니미배경</option>
 					<option value="minimi">미니미</option>
 					<option value="pet">펫</option>
 					<option value="diaryBackground">다이어리배경</option>
@@ -120,9 +134,7 @@
 <h2>아이템샵</h2>	
 		<div id = "ItemStore">
 			<div style = "width : 1300px; height : 470px;">
-			
 				<c:forEach var = "iList" items = "${itemList}">
-					
 					<div class = "itemArea">
 						<div class = "itemImg">
 							<img src="${contextPath}/resources/itemImages/${iList.itemLink}">
@@ -132,28 +144,25 @@
 							${iList.itemName}<br>
 							가격 : 잣 ${iList.price}개
 						</p>
-						<%-- <c:if test="${!empty UserInfo}"> --%>
-							<c:url var = "buyItem" value = "buyItem.do">
-								<c:param name="itemNo" value = "${iList.itemNo}"/>
-							</c:url>
-							<button onclick = "location.href = '${buyItem}'">구매하기</button>&nbsp;
+						<c:if test="${!empty UserInfo}">
+							<c:url var = "buyItemView" value = "buyItemView.do">
+							<c:param name="itemNo" value = "${iList.itemNo}"/>
+						</c:url>
+						<button class = "buyItem" value = "${iList.itemNo}" onclick = "location.href = '${buyItemView}'">구매하기</button>&nbsp;
 							
 							<c:url var = "presentItem" value = "presentItem.do">
 								<c:param name="itemNo" value = "${iList.itemNo}"/>
 							</c:url>
 							<button onclick = "location.href = '${presentItem}'">선물하기</button>&nbsp;
-							
-							<input type = "hidden" id = "hiddemItemNo" value = "${iList.itemNo}">
-							<button id = "kip" class= "kipItem">찜하기</button>
-							<!-- 구매, 선물은 이 방식으로 해도되는데 찜하기는 ajax이용해야되서 script에서 값 받아줘야됨.... -->
-						<%-- </c:if> --%>
+								
+							<button class= "kipItem" value = "${iList.itemNo}">찜하기</button>	
+						</c:if>
 						
-						<%-- <c:if test="${empty UserInfo}">
+						<c:if test="${empty UserInfo}">
 							<button onclick = "login()">구매하기</button>&nbsp;
 							<button onclick = "login()">선물하기</button>&nbsp;
 							<button onclick = "login()">찜하기</button>
-						</c:if> --%>
-						
+						</c:if>
 					</div>
 				</c:forEach>
 			</div>	
@@ -210,6 +219,7 @@
 				<button>검색</button>
 			</div>
 		</div>
+		<input id = "hiddenId" type = "hidden" value = "${UserInfo.userId}">
 	</div>
 	<script>
 		function login(){
@@ -217,13 +227,57 @@
 		}
 
 		$(function(){
+			var kipItemNo = ${kipItemNo};	// controll에서 가져온 유저가 현재 찜목록+보유아이템 에 추가되어있는 아이템번호 리스트 
+			var buyItemNo = ${buyItemNo};
+			
+			for(var i in buyItemNo){
+				$('.buyItem[value = "'+buyItemNo[i]+'"]').attr('disabled', true);
+				$('.buyItem[value = "'+buyItemNo[i]+'"]').css('background', 'red');
+				$('.kipItem[value = "'+buyItemNo[i]+'"]').css('background', 'yellowgreen').addClass('alreadyBuy');
+			}
+			
+			for(var i in kipItemNo){
+				//$('.kipItem[value = "'+kipItemNo[i]+'"]').attr('disabled', true);
+				$('.kipItem[value = "'+kipItemNo[i]+'"]').css('background', 'green').addClass('already');
+			}
+			
 			$(".kipItem").click(function(){
-				var itemNo = $(this).parents().find("input[id='hiddemItemNo']").val();
+				var itemNo = $(this).val();
+				var userId = $("#hiddenId").val();
+				var kipCount = ${kipCount};
 				
-				console.log(itemNo);
+				if($(this).hasClass('already')){
+					alert("이미 찜목록에 등록되어있는 아이템입니다.");
+				}else if($(this).hasClass('alreadyBuy')){
+					alert("이미 구매한 아이템입니다.");
+				}else{
+					if(kipCount > 10){
+						alert("찜목록은 최대 10개까지 등록가능합니다.");
+					}else{
+						$.ajax({
+							url:"kipItem.do",
+							data:{itemNo:itemNo,userId:userId},
+							type:"post",
+							success:function(data){
+								if(data=="ok"){
+									$('.kipItem[value = "'+itemNo+'"]').css('background', 'green').addClass('already');
+									var check = confirm("찜목록에 추가되었습니다. 장바구니로 이동하시겠습니까?");
+									if(check == true){
+										location.href = "kipItemView.do?userId="+userId;
+									}
+								}
+							},
+							error:function(request, status, errorData){
+								alert("error code : "+request.status + "\n" + 
+										"message : " + request.responseText + 
+										"error : " + errorData);
+							}
+						})
+					}		
+				}
+				
 			})
-		});
-		
+		});		
 	</script>
 
 	<jsp:include page="../common/footer.jsp"/>

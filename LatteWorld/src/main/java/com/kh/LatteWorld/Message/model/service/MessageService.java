@@ -23,15 +23,15 @@ public interface MessageService {
 	/*
 	 * 1_1 받은 메세지 전체조회
 	 */
-	public ArrayList<Message> selectListReceive(PageInfoMessage pi);
+	public ArrayList<Message> selectListReceive(PageInfoMessage pi, String receiveId);
 	/*
 	 * 1_2 보낸 메세지 전체조회
 	 */
-	public ArrayList<Message> selectListSend(PageInfoMessage pi);
+	public ArrayList<Message> selectListSend(PageInfoMessage pi, String sendId);
 	/*
 	 * 1_3 휴지통
 	 */
-	public ArrayList<Message> selectListErase(PageInfoMessage pi);
+	public ArrayList<Message> selectListErase(PageInfoMessage pi, String receiveId);
 	/*
 	 * 2_1 메세지 보내기(insert)
 	 */
@@ -39,7 +39,11 @@ public interface MessageService {
 	/*
 	 * 2_2 메세지 불러오기(detail view)
 	 */
-	public Message recieveMessate(int messageNo, String receiveId);
+	public Message receiveMessage(int messageNo);
+	/*
+	 * 2_3 보낸 매세지 보기(detail view)
+	 */
+	public Message sendMessageDetail(int messageNo, String sendId);
 	/*
 	 * 3_1 메세지 휴지통으로 보내기(update)
 	 */

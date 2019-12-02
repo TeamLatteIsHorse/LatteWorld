@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//myb atis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace = "itemMapper">
+
 	<resultMap type="ItemStore" id="ItemResultSet">
 	<id property="itemNo" column="ITEMNO"/>
 	<result property="price" column="PRICE"/>
@@ -10,7 +11,24 @@
 	<result property="createDate" column="CREATEITEM"/>
 	<result property="itemStatus" column="ITEMSTATUS"/>
 	<result property="itemName" column="itemName"/>
+	</resultMap>
 	
+	<resultMap type="KipItem" id="KipItemResultSet">
+	<id property="kipListNo" column="KIPLISTNO"/>
+	<result property="userId" column="USERID"/>
+	<result property="itemNo" column="ITEMNO"/>
+	<result property="itemName" column="ITEMNAME"/>
+	<result property="price" column="PRICE"/>
+	<result property="itemCategory" column="ITEMCATEGORY"/>
+	<result property="itemStatus" column="ITEMSTATUS"/>
+	<result property="itemLink" column="ITEMLINK"/>
+	</resultMap>
+	
+	<resultMap type="UserItemList" id="UserItemList">
+	<id property="itemListNo" column="ITEMLISTNO"/>
+	<result property="userId" column="USERID"/>
+	<result property="itemNo" column="ITEMNO"/>
+	<result property="itemUseStatus" column="ITEMUSESTATUS"/>
 	</resultMap>
 	
 	<select id="getItemListCount" resultType="_int">
@@ -41,4 +59,71 @@
 		FROM ITEMSTORE
 		WHERE ITEMNO=#{itemNo}
 	</select>
+	
+	<select id="selectOneItem" parameterType="_int" resultMap="ItemResultSet">
+		SELECT *
+		FROM ITEMSTORE
+		WHERE ITEMNO=#{itemNo}
+	</select>
+	
+	<insert id="insertkipItem" parameterType="ItemStore">
+		INSERT INTO KIPITEM
+		VALUES(SEQ_KIPINO.NEXTVAL, DEFAULT, #{itemNo}, #{itemName}, #{price}, #{itemCategory}, #{itemStatus}, #{itemLink})
+	</insert>
+	
+	<update id="updateNullUser" parameterType="string">
+		UPDATE KIPITEM
+		SET USERID=#{userId}
+		WHERE USERID IS NULL
+	</update>
+	
+	<select id="getkipItemListCount" resultType="_int" parameterType="string">
+		SELECT COUNT(*)
+		FROM KIPITEM
+		WHERE ITEMSTATUS = 'Y'
+		AND USERID=#{userId}
+	</select>
+	
+	<select id="selectKipItemlist" resultMap="KipItemResultSet" parameterType="string">
+		SELECT *
+		FROM KIPITEM
+		WHERE USERID=#{userId}
+		AND ITEMSTATUS='Y'
+	</select>
+	
+	<select id="selectAllItemList" resultMap = "ItemResultSet">
+		SELECT *
+		FROM ITEMSTORE
+		WHERE ITEMSTATUS='Y'
+	</select>
+	
+	<insert id="insertItemList" parameterType="string">
+		INSERT INTO USERITEMLIST
+		VALUES(SEQ_USERILISTNO.NEXTVAL, #{userId}, DEFAULT, DEFAULT)
+	</insert>
+	
+	<update id="insertItemNo" parameterType="_int">
+		UPDATE USERITEMLIST
+		SET ITEMNO=#{itemNo}
+		WHERE ITEMNO IS NULL
+	</update>
+	
+	<update id="updateUserPoint" parameterType="UserInfo">
+		UPDATE USERINFO
+		SET POINT=POINT-#{itemPoint}
+		WHERE USERID=#{userId}
+	</update>
+	
+	<select id="selectUserItemList" resultMap="UserItemList">
+		SELECT *
+		FROM USERITEMLIST
+		WHERE USERID=#{userId}
+	</select>
+	
+	<select id="selectUserPoint" parameterType="string" resultType="_int">
+		SELECT POINT
+		FROM USERINFO
+		WHERE USERID=#{userId}
+	</select>
+	
 </mapper>

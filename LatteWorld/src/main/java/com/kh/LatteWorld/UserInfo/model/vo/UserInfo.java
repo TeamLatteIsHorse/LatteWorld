@@ -17,8 +17,22 @@ public class UserInfo implements Serializable{
 	private String userType;
 	private String userStatus;
 	private int point;
+	private int itemPoint;
 	public UserInfo() {
 	
+	}
+	public UserInfo(String userId, String userPwd, String userName, String email, String phone, String userType,
+			String userStatus, int point, int itemPoint) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.email = email;
+		this.phone = phone;
+		this.userType = userType;
+		this.userStatus = userStatus;
+		this.point = point;
+		this.itemPoint = itemPoint;
 	}
 	public UserInfo(String userId, String userPwd, String userName, String email, String phone, String userType,
 			String userStatus, int point) {
@@ -31,6 +45,14 @@ public class UserInfo implements Serializable{
 		this.userType = userType;
 		this.userStatus = userStatus;
 		this.point = point;
+	}
+	
+	
+	public int getItemPoint() {
+		return itemPoint;
+	}
+	public void setItemPoint(int itemPoint) {
+		this.itemPoint = itemPoint;
 	}
 	public String getUserId() {
 		return userId;
@@ -87,6 +109,8 @@ public class UserInfo implements Serializable{
 	public String toString() {
 		return "UserInfo [userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName + ", email=" + email
 				+ ", phone=" + phone + ", userType=" + userType + ", userStatus=" + userStatus + ", point=" + point
-				+ "]";
+				+ ", itemPoint=" + itemPoint + "]";
 	}
+	
+	
 }
