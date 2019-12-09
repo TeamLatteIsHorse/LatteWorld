@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src = "http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style>
 	.content {
 	    margin-left: 423px;
@@ -86,6 +86,10 @@
 	
 	<div class = "content">
 	<h2>인기 상품</h2>
+		<button style = "width : 50px !important;" onclick = "goKipItemView()">찜목록 이동</button>
+		<button style = "width : 50px !important;" onclick = "goSendPresent()">보낸 선물함</button>
+		<button style = "width : 50px !important;" onclick = "goReceivePresent()">받은 선물함</button>
+		<button style = "width : 50px !important;" onclick = "gohaveItemList()">보유 아이템</button>
 		<div id = "hitItem">
 			<c:forEach var = "bis" items = "${bestItemList}">
 				<div class = "hitItemArea">
@@ -105,6 +109,7 @@
 							<c:param name="itemNo" value = "${bis.itemNo}"/>
 						</c:url>
 						<button class = "buyItem" value = "${bis.itemNo}" onclick = "location.href = '${buyItemView}'">구매하기</button>&nbsp;
+						
 						<c:url var = "presentItem" value = "presentItem.do">
 							<c:param name="itemNo" value = "${bis.itemNo}"/>
 						</c:url>
@@ -150,12 +155,12 @@
 						</c:url>
 						<button class = "buyItem" value = "${iList.itemNo}" onclick = "location.href = '${buyItemView}'">구매하기</button>&nbsp;
 							
-							<c:url var = "presentItem" value = "presentItem.do">
-								<c:param name="itemNo" value = "${iList.itemNo}"/>
-							</c:url>
-							<button onclick = "location.href = '${presentItem}'">선물하기</button>&nbsp;
+						<c:url var = "presentItem" value = "presentItem.do">
+							<c:param name="itemNo" value = "${iList.itemNo}"/>
+						</c:url>
+						<button onclick = "location.href = '${presentItem}'">선물하기</button>&nbsp;
 								
-							<button class= "kipItem" value = "${iList.itemNo}">찜하기</button>	
+						<button class= "kipItem" value = "${iList.itemNo}">찜하기</button>	
 						</c:if>
 						
 						<c:if test="${empty UserInfo}">
@@ -225,6 +230,27 @@
 		function login(){
 			alert("로그인이 필요합니다!");
 		}
+		
+		function goKipItemView(){
+			var userId = $("#hiddenId").val();
+			
+			location.href = "kipItemView.do?userId="+userId;
+		}
+		
+		function goSendPresent(){
+			var userId = $("#hiddenId").val();
+			location.href = "sendItemView.do?userId="+userId;
+		}
+		
+		function goReceivePresent(){
+			var userId = $("#hiddenId").val();
+			location.href = "receiveItemView.do?userId="+userId;
+		}
+		
+		function gohaveItemList(){	// 이거 아직 안되있어
+			var userId = $("#hiddenId").val();
+			location.href = "receiveItemView.do?userId="+userId;
+		}
 
 		$(function(){
 			var kipItemNo = ${kipItemNo};	// controll에서 가져온 유저가 현재 찜목록+보유아이템 에 추가되어있는 아이템번호 리스트 
@@ -273,11 +299,11 @@
 										"error : " + errorData);
 							}
 						})
-					}		
+					}
 				}
-				
+
 			})
-		});		
+		});
 	</script>
 
 	<jsp:include page="../common/footer.jsp"/>

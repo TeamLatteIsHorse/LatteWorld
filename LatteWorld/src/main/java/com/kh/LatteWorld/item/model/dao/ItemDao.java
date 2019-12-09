@@ -11,6 +11,7 @@ import com.kh.LatteWorld.UserInfo.model.vo.UserInfo;
 import com.kh.LatteWorld.item.model.vo.ItemPageInfo;
 import com.kh.LatteWorld.item.model.vo.ItemStore;
 import com.kh.LatteWorld.item.model.vo.KipItem;
+import com.kh.LatteWorld.item.model.vo.Present;
 import com.kh.LatteWorld.item.model.vo.UserItemList;
 
 @Repository("itemDao")
@@ -69,16 +70,12 @@ public class ItemDao {
 
 		return (ArrayList)sqlSession.selectList("itemMapper.selectAllItemList");
 	}
+	
+	public int insertBuyItem(UserItemList itemList) {
 
-	public int insertItemList(String userId) {
-
-		return sqlSession.insert("itemMapper.insertItemList", userId);
+		return sqlSession.insert("itemMapper.insertBuyItem",itemList);
 	}
-
-	public int insertItemNo(int itemNo) {
-
-		return sqlSession.update("itemMapper.insertItemNo", itemNo);
-	}
+	
 
 	public int updateUserPoint(UserInfo loginUser) {
 
@@ -93,6 +90,41 @@ public class ItemDao {
 	public int selectUserPoint(String userId) {
 
 		return sqlSession.selectOne("itemMapper.selectUserPoint", userId);
+	}
+
+	public int deleteKipItemList(int itemNo) {
+
+		return sqlSession.delete("itemMapper.deleteKipItemList",itemNo);
+	}
+
+	public int insertPresentItem(Present preItem) {
+
+		return sqlSession.insert("itemMapper.insertPresentItem", preItem);
+	}
+
+	public ArrayList<Present> selectSendItemList(String userId) {
+
+		return (ArrayList)sqlSession.selectList("itemMapper.selectSendItemList", userId);
+	}
+
+	public ArrayList<Present> selectReceiveItemList(String userId) {
+
+		return (ArrayList)sqlSession.selectList("itemMapper.selectReceiveItemList",userId);
+	}
+
+	public int selectOnePresentItem(Present preItem) {
+
+		return sqlSession.selectOne("itemMapper.selectOnePresentItem", preItem);
+	}
+
+	public int selecthaveOneItem(UserItemList oneItem) {
+
+		return sqlSession.selectOne("itemMapper.selecthaveOneItem",oneItem);
+	}
+
+	public int updateAddItemCount(int itemNo) {
+
+		return sqlSession.update("itemMapper.updateAddItemCount", itemNo);
 	}
 
 }

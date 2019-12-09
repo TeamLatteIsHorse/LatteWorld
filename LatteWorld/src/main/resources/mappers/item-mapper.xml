@@ -31,6 +31,19 @@
 	<result property="itemUseStatus" column="ITEMUSESTATUS"/>
 	</resultMap>
 	
+	<resultMap type="Present" id="PresentResultMap">
+	<id property="presentListNo" column="PRESENTLISTNO"/>
+	<result property="itemNo" column="ITEMNO"/>
+	<result property="userId" column="USERID"/>
+	<result property="itemCategory" column="ITEMCATEGORY"/>
+	<result property="itemName" column="ITEMNAME"/>
+	<result property="itemLink" column="ITEMLINK"/>	
+	<result property="presentUserId" column="PRESENTUSERID"/>
+	<result property="presentDate" column="PRESENTDATE"/>
+	<result property="presentContent" column="PRESENTCONTENT"/>
+	<result property="presentStatus" column="PRESENTSTATUS"/>
+	</resultMap>
+	
 	<select id="getItemListCount" resultType="_int">
 		SELECT COUNT(*) 
 		FROM ITEMSTORE
@@ -97,16 +110,10 @@
 		WHERE ITEMSTATUS='Y'
 	</select>
 	
-	<insert id="insertItemList" parameterType="string">
+	<insert id="insertBuyItem" parameterType="UserItemList">
 		INSERT INTO USERITEMLIST
-		VALUES(SEQ_USERILISTNO.NEXTVAL, #{userId}, DEFAULT, DEFAULT)
+		VALUES(SEQ_USERILISTNO.NEXTVAL, #{userId}, #{itemNo}, DEFAULT)
 	</insert>
-	
-	<update id="insertItemNo" parameterType="_int">
-		UPDATE USERITEMLIST
-		SET ITEMNO=#{itemNo}
-		WHERE ITEMNO IS NULL
-	</update>
 	
 	<update id="updateUserPoint" parameterType="UserInfo">
 		UPDATE USERINFO
@@ -125,5 +132,49 @@
 		FROM USERINFO
 		WHERE USERID=#{userId}
 	</select>
+	
+	<delete id="deleteKipItemList" parameterType="_int">
+		DELETE FROM KIPITEM
+		WHERE ITEMNO=#{itemNo}
+	</delete>
+	
+	<insert id="insertPresentItem" parameterType="Present">
+		INSERT INTO PRESENT
+		VALUES(SEQ_PRESENTINO.NEXTVAL, #{itemNo}, #{userId}, #{itemCategory}, #{itemName}, #{itemLink}, #{presentUserId}, SYSDATE, #{presentContent}, DEFAULT)
+	</insert>
+	
+	<select id="selectSendItemList" parameterType="string" resultMap="PresentResultMap">
+		SELECT *
+		FROM PRESENT
+		WHERE USERID=#{userId}
+		ORDER BY PRESENTLISTNO DESC
+	</select>
+	
+	<select id="selectReceiveItemList" parameterType="string" resultMap="PresentResultMap">
+		SELECT *
+		FROM PRESENT
+		WHERE PRESENTUSERID=#{userId}
+		ORDER BY PRESENTLISTNO DESC
+	</select>
+	
+	<select id="selectOnePresentItem" parameterType="Present" resultType="_int">
+		SELECT COUNT(*)
+		FROM PRESENT
+		WHERE PRESENTUSERID=#{presentUserId}
+		AND ITEMNO=#{itemNo}
+	</select>
+	
+	<select id="selecthaveOneItem" parameterType="UserItemList" resultType="_int">
+		SELECT COUNT(*)
+		FROM USERITEMLIST
+		WHERE USERID=#{userId}
+		AND ITEMNO=#{itemNo}
+	</select>
+	
+	<update id="updateAddItemCount" parameterType="_int">
+		UPDATE ITEMSTORE
+		SET ITEMCOUNT=ITEMCOUNT+1
+		WHERE ITEMNO=#{itemNo}
+	</update>
 	
 </mapper>

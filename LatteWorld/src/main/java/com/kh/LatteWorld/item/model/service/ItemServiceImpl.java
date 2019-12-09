@@ -10,6 +10,7 @@ import com.kh.LatteWorld.item.model.dao.ItemDao;
 import com.kh.LatteWorld.item.model.vo.ItemPageInfo;
 import com.kh.LatteWorld.item.model.vo.ItemStore;
 import com.kh.LatteWorld.item.model.vo.KipItem;
+import com.kh.LatteWorld.item.model.vo.Present;
 import com.kh.LatteWorld.item.model.vo.UserItemList;
 
 @Service("itemService")
@@ -48,7 +49,6 @@ public class ItemServiceImpl implements ItemService{
 		return itemDao.selectOneItem(itemNo);	// 찜하기 눌렀을 때 해당 아이템의 정보 객체 불러오기
 	}
 
-
 	@Override
 	public int insertkipItem(ItemStore item) {
 
@@ -78,17 +78,11 @@ public class ItemServiceImpl implements ItemService{
 
 		return itemDao.selectAllItemList();
 	}
-
+	
 	@Override
-	public int insertItemList(String userId) {	// 유저 보유 아이템 리스트에 값 넣기(itemNo는 아직 null)
+	public int insertBuyItem(UserItemList itemList) {	// 구매한 아이템 db에 값넣기
 
-		return itemDao.insertItemList(userId);
-	}
-
-	@Override
-	public int insertItemNo(int itemNo) {	// null되어있는 아이템 번호 값 넣기
-
-		return itemDao.insertItemNo(itemNo);
+		return itemDao.insertBuyItem(itemList);
 	}
 
 	@Override
@@ -108,5 +102,49 @@ public class ItemServiceImpl implements ItemService{
 
 		return itemDao.selectUserPoint(userId);
 	}
+
+	@Override
+	public int deleteKipItemList(int itemNo) {		// 찜목록 삭제
+
+		return itemDao.deleteKipItemList(itemNo);
+	}
+
+	@Override
+	public int insertPresentItem(Present preItem) {		// 선물하기 테이블 값 삽입
+
+		return itemDao.insertPresentItem(preItem);
+	}
+
+	@Override
+	public ArrayList<Present> selectSendItemList(String userId) {	// 보낸 선물함리스트 불러오기
+
+		return itemDao.selectSendItemList(userId);
+	}
+
+	@Override
+	public ArrayList<Present> selectReceiveItemList(String userId) {	// 받은 선물함리스트 불러오기
+
+		return itemDao.selectReceiveItemList(userId);
+	}
+
+	@Override
+	public int selectOnePresentItem(Present preItem) {	// 선물받을 유저가 선물함에 해당 아이템이 있는지
+
+		return itemDao.selectOnePresentItem(preItem);
+	}
+
+	@Override
+	public int selecthaveOneItem(UserItemList oneItem) {	// 선물받을 유저가 이미 아이템을 보유하고있는지
+
+		return itemDao.selecthaveOneItem(oneItem);
+	}
+
+	@Override
+	public int updateAddItemCount(int itemNo) {	// 구매 아이템 카운트 1증가!
+
+		return itemDao.updateAddItemCount(itemNo);
+	}
+
+	
 
 }

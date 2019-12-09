@@ -17,7 +17,7 @@ public class UserInfo implements Serializable{
 	private String userType;
 	private String userStatus;
 	private int point;
-	private int itemPoint;
+	private int itemPoint;	// 아이템 가격 차감시킬때 쓰이는 변수
 	public UserInfo() {
 	
 	}
