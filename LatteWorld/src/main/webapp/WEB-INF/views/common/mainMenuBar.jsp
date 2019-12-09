@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-<script src="http://code.jquery.com/jquery-3.3.1.min/js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
@@ -106,7 +106,10 @@ display : inline-block;
 	<div class="topnav">
 		<div id="topMenu">
 			<img id="mainLogo" width="80px" height="80px" src="resources/images/MainLogo.jpg" onclick="location.href ='home.do'">
-			<div id ="link"><a href="#"	onClick="javascript:openWin()">미니홈피</a><a>일촌 신청하기</a><a>선물가게</a></div>
+			<div id ="link"><a href="#"	onClick="javascript:openWin()">미니홈피</a><a>일촌 신청하기</a>
+<c:url var="itemStoreList" value = "itemStoreList.do"></c:url>
+				<a href = "${itemStoreList}">선물가게</a>
+</div>
 			<input type="button" value="BGM 상점">
 		</div>
 	</div>
@@ -148,6 +151,23 @@ display : inline-block;
 						</div>
 					</div>
 					님 환영합니다 :)
+					<script>
+						function logmyFunction() {
+						  document.getElementById("lognameDropdown").classList.toggle("logshow");
+						}
+						window.onclick = function(event) {
+						  if (!event.target.matches('.logdropbtn')) {
+						    var logdropdowns = document.getElementsByClassName("logdropdown-content");
+						    var i;
+						    for (i = 0; i < logdropdowns.length; i++) {
+						      var openDropdown = logdropdowns[i];
+						      if (openDropdown.classList.contains('logshow')) {
+						        openDropdown.classList.remove('logshow');
+						      }
+						    }
+						  }
+						}
+					</script>
 				<button onclick = "location.href = 'receivelist.do' ">쪽지 보내기</button>
 				<c:url var = "mypage" value = "mypage.do">
 					<c:param name = "userId" value = "${UserInfo.userId }"/>
@@ -165,16 +185,16 @@ display : inline-block;
 				</c:url>
 			</c:if>
 				<a onclick = "location.href='${findBF }'">BF 찾기</a>
-				<p>내 미니홈피</p>
-				<p>내 BF 보기</p>
-				<p>공지사항</p>
-				<p>고객센터</p>
+				<a href="#" onclick = "openWin()">미니 홈피</a>
+				<a>내 BF 보기</a>
+				<a>공지사항</a>
+				<a>고객센터</a>
 			</div>
 			<div id="addLeftMenus">
-				<p>여다가는 뭘 넣지</p>
-				<p>뭘느까</p>
-				<p>음음</p>
-				<p>뭣을 너으까</p>
+				<a>여다가는 뭘 넣지</a>
+				<a>뭘느까</a>
+				<a>음음</a>
+				<a>뭣을 너으까</a>
 			</div>
 		</div>
 	</div>
@@ -214,6 +234,7 @@ display : inline-block;
 	  }
 	}
 </script>
+
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
 	<settings>
@@ -9,6 +9,11 @@
 		<typeAlias type="com.kh.LatteWorld.Message.model.vo.Message" alias="Message"/>
 		<typeAlias type="com.kh.LatteWorld.bestFriend.model.vo.bfSearchCondition" alias="bfSearchCondition"/>
 		<typeAlias type="com.kh.LatteWorld.bestFriend.model.vo.BestFriend" alias="BestFriend"/>
+		<typeAlias type="com.kh.LatteWorld.item.model.vo.ItemStore" alias="ItemStore"/>
+		<typeAlias type="com.kh.LatteWorld.item.model.vo.KipItem" alias="KipItem"/>
+		<typeAlias type="com.kh.LatteWorld.item.model.vo.UserItemList" alias="UserItemList"/>
+		<typeAlias type="com.kh.LatteWorld.item.model.vo.Present" alias="Present"/>
+		
 		<!-- 본인거 똑바로 잘적긔 -->		
 		
 	</typeAliases>
@@ -16,5 +21,6 @@
 		<mapper resource="mappers/userinfo-mapper.xml"/>
 		<mapper resource="mappers/message-mapper.xml"/>
 		<mapper resource="mappers/bestfriend-mapper.xml"/>
+		<mapper resource="mappers/item-mapper.xml"/>
 	</mappers>
 </configuration>

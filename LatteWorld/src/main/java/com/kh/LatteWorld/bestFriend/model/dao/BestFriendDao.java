@@ -20,4 +20,14 @@ public class BestFriendDao {
 		
 		return (ArrayList)sqlSession.selectList("bestfriendMapper.searchUser", bfsc);
 	}
+
+	public int checkBf(BestFriend bf) {
+
+		return sqlSession.selectOne("bestfriendMapper.checkBF", bf);
+	}
+
+	public int insertBf(BestFriend bf) {
+
+		return sqlSession.insert("bestfriendMapper.insertBF", bf);
+	}
 }

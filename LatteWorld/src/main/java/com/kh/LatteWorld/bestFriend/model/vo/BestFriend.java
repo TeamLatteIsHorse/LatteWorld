@@ -13,7 +13,6 @@ public class BestFriend implements Serializable{
 	private Date bfDate;
 	private Date bfConfirmDate;
 	public BestFriend() {
-	
 	}
 	public BestFriend(int bfNo, String bfApplyId, String bfAppliedId, String bfStatus, String bfComments, Date bfDate,
 			Date bfConfirmDate) {
