@@ -95,4 +95,8 @@ public class MessageServiceImpl implements MessageService {
 	public ArrayList<BestFriend> searchBestFriend(String userId) {
 		return mDao.searchBestFriend(userId);
 	}
+	@Override
+	public Message resendView(String sendId, String receiveId) {
+		return mDao.resendView(sendId, receiveId);
+	}
 }

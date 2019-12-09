@@ -110,5 +110,8 @@
 		WHERE BFAPPLYID=#{userId}
 	</select>
 	
+	<select id="resendView" parameterType="map" resultMap="messageResultSet">
+		SELECT 
+	</select>
 	
 </mapper>

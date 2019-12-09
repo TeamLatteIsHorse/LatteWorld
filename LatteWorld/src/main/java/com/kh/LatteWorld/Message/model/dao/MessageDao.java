@@ -1,6 +1,8 @@
 package com.kh.LatteWorld.Message.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -77,6 +79,13 @@ public class MessageDao {
 
 		public ArrayList<BestFriend> searchBestFriend(String userId) {
 			return (ArrayList)sqlSession.selectList("messageMapper.searchBestFriend",userId);
+		}
+
+		public Message resendView(String sendId, String receiveId) {
+			Map resendMap = new HashMap<String, Object>();
+			resendMap.put("sendId", sendId);
+			resendMap.put("receiveId", receiveId);
+			return sqlSession.selectOne("messageMapper.resendView",resendMap);
 		}
 
 }

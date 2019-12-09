@@ -64,4 +64,7 @@ public interface MessageService {
 	//1촌 찾기
 	public ArrayList<BestFriend> searchBestFriend(String userId);
 
+	//답장하기 뷰
+	public Message resendView(String sendId, String receiveId);
+
 }

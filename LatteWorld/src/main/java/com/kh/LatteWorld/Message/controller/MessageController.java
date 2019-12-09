@@ -170,6 +170,7 @@ public class MessageController {
 			return "redirect:eraselist.do";
 		}
 		
+		//메세지 상태 업데이트
 		@RequestMapping("updateMessageStatus")
 		public String updateMessageStatus(int messageNo) {
 			
@@ -178,6 +179,7 @@ public class MessageController {
 			return "redirect:receivelist.do";
 		}
 		
+		//메세지 보내기 뷰로가기
 		@RequestMapping("sendMessageGo.do")
 		public String sendMessageGo(HttpSession session) {
 			UserInfo loginUser = (UserInfo)session.getAttribute("UserInfo");
@@ -188,6 +190,7 @@ public class MessageController {
 			return "message/sendMessage";
 		}
 		
+		//메세지 보내기
 		@RequestMapping("sendMessage.do")
 		public String sendMessage(HttpServletRequest request, Message m,HttpSession session,
 									@RequestParam(value="receiveId", required=false) String receiveId) {
@@ -201,10 +204,17 @@ public class MessageController {
 		}
 		
 		@RequestMapping("resendView.do")
-		public String resendView(HttpSession session, 
-									@RequestParam(value="receiveId", required=false) String receiveId) {
+		public ModelAndView resendView(ModelAndView mv, HttpSession session, 
+									int messageNo) {
 			
-			return "message/resendMessage";
+			System.out.println(messageNo);
+			UserInfo loginUser = (UserInfo)session.getAttribute("UserInfo");
+			String userId=loginUser.getUserId();
+			
+			Message m = meService.resendView(messageNo);
+			
+			mv.setViewName("message/resendMessage");
+			return mv;
 			
 		}
 		

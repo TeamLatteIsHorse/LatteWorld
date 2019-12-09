@@ -23,17 +23,19 @@
 			<td>
 			<button onclick="resend()">답장하기</button>
 			<button onclick="closeR()">확인</button>	
-			<button>삭제</button>
 		</tr>
 		
 	</table>
 	<script>
 		
+	//닫기
 		function closeR(){
 			window.close();	
 		}
+	//답장
+	
 		function resend(){
-			location.href="resendView.do?receiveId="+${m.sendId};
+			location.href="resendView.do?messageNo="+${m.messageNo};
 		}
 	</script>
 	
