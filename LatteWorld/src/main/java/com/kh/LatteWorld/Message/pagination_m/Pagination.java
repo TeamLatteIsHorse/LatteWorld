@@ -21,12 +21,12 @@ public class Pagination {
 		int messageLimit = 20; // 한 페이지에 보여질 게시글 갯수
 		
 		/* maxPage = (int)((double)listCount/boardLimit + 0.8); */
-		maxPage = (int)((double)listCount/messageLimit + 0.9);
+		maxPage = (int)((double)listCount/messageLimit + 0.95);
 		// case 1 : listCount가 1일 때 maxPage는 1이 되어야 한다.
 		// case 2 : listCount가 5일 때 maxPage는 1이 되어야 한다.
 		// case 3 : listCount가 6일 때 maxPage는 2가 되어야 한다.(다음 페이지 정도까지 생각해 보자)
 	
-		startPage = (((int)((double)currentPage/pageLimit + 0.9)) - 1) * pageLimit + 1;
+		startPage = (((int)((double)currentPage/pageLimit + 0.95)) - 1) * pageLimit + 1;
 		// pageLimit이 10일 때,
 		// case 1 : currentPage가 1일 때 startPage는 1이 되어야 한다.
 		// case 2 : currentPage가 10일 때 startPage는 1이 되어야 한다.

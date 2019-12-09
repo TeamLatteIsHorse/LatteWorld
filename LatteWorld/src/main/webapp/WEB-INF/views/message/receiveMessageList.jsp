@@ -14,50 +14,62 @@
 </head>
 <body>
 <jsp:include page ="../common/mainMenuBar.jsp"/>
-<h1 align="center">받은 쪽지함</h1>
 	
-	
-	
+	<div class = "content">
+	<h1 align="center">받은 쪽지함</h1>
+		<div class = "etcbutton">
+			<input type="button" onclick="location.href='eraselist.do'" value="휴지통">
+			<input type="button" onclick="location.href='sendlist.do'" value="보낸 쪽지함">
+		</div>
 		<table align="center" border="1" cellspacing="0" width="800" id="receiveMessage">
 		<tr>
-			<th><input type="checkbox" id="checkall"></th>
+			<th width="20"><input type="checkbox" id="checkall"></th>
 			<th>보낸사람</th>
-			<th>내용</th>
+			<th width="300">내용</th>
 			<th>날짜</th>
 		</tr>
+		<c:if test="${!empty list }">
 		<c:forEach var="r" items="${list }">
-		<input type="hidden" name="messageNo" value="${r.messageNo}"/>
+		<input id="messageNo" type="hidden" name="messageNo" value="${r.messageNo}"/>
+		<input id="messageStatus" type="hidden" name="messageStatus" value="${r.messageStatus }"/>	
 		<tr>
-			<td align="center"><input type="checkbox" class="chk" name="chk"></td>
-			<td align="center">${r.receiveId }</td>
+			<td align="center"><input type="checkbox" class="chk" name="chk" value="${r.messageNo }"></td>
+			<td align="center">${r.sendId }</td>
+			<%-- <c:if test="${r.messageStatus } " eq N> --%>
 			<td align="center">
-				<c:url var="rdetail" value="receiveMessage.do">
-					<c:param name="messageNo" value="${r.messageNo }"/>
-					<c:param name="page" value="${pi.currentPage }"/>
-					<a href="${receiveMessage }">${r.content }</a>
-				</c:url>
+					<a href="#" onclick="receiveOpenWin()">${r.messageContent }</a>
 			</td>
+			<%-- </c:if> --%>
 			<td align="center">${r.sendDate }</td>
 		</tr>
 		</c:forEach>
+		</c:if>
+		<c:if test="${ empty list}">
+		<tr>
+			<td align="center" colspan="5">
+				쪽지가 없습니다.
+			</td>
+		</tr>
+		</c:if>
 		
 		<tr align="center" height="15">
 			<td colspan="4">
 				<c:if test="${pi.currentPage ==1 }">
-					이전
+					[이전]
 				</c:if>
 				
-				<c:if test="${pi.currenPage > 1 }">
-					<c:url var = "rlistBack" value="/receivelist.do">
-						<c:param name="page" value="${pi.currendPage - 1 }"/>
+				<c:if test="${pi.currentPage > 1 }">
+					<c:url var = "rlistBack" value="receivelist.do">
+						<c:param name="page" value="${pi.currentPage - 1 }"/>
 					</c:url>
-					<a href="${rlistBack }">이전</a>
+					<a href="${rlistBack }">[이전]</a>
 				</c:if>
 				
 				<c:forEach var = "p" begin="${pi.startPage }" end="${pi.endPage }">
 					<c:if test="${p eq pi.currentPage }">
 						<font color = "red" size="3"><b>[${p }]</b></font>
 					</c:if>
+
 					
 					<c:if test="${p ne pi.currentPage }">
 						<c:url var="rlistCheck" value="receivelist.do">
@@ -71,7 +83,7 @@
 	 				</c:if>
 	 				
 	 				<c:if test="${pi.currentPage < pi.maxPage }">
-	 					<c:url var="rlistEnd" value="rlist.do">
+	 					<c:url var="rlistEnd" value="receivelist.do">
 	 						<c:param name="page" value="${pi.currentPage + 1 }"/>
 	 					</c:url>
 	 					<a href="${rlistEnd }">&nbsp;[다음]</a>
@@ -79,11 +91,12 @@
 			</td>
 		</tr>
 		<tr>
-			<td><button>쪽지쓰기</button></td>
-			<td><button>삭제하기</button>
+			<td><button onclick="sendMessageOpen()">쪽지쓰기</button> 
+				<button id="eraseM">삭제하기</button></td>
+			
 		</tr>
 		</table>	
-	
+	</div>
 		
 	
 	
@@ -109,10 +122,37 @@
 			}
 		});
 		
+		//체크된거 휴지통으로
+		$("#eraseM").click(function(){
+			var chk="";
+			$("input[name='chk']:checked").each(function(){
+				chk=chk+$(this).val()+",";
+			});
+			chk=chk.substring(0,chk.lastIndexOf(","));
+			
+			if(chk==''){
+				alert("쪽지를 선택하세요");
+				return false;
+			}
+			
+			if(confirm("휴지통으로 보내시겠습니까?")){
+				location.href="eraseMessage.do?chk="+chk;
+			}
+		})
 		
-		
-		
-		
+		var receiveOpenWin;
+		function receiveOpenWin(){
+			var messageNo = $("#messageNo").val();
+			var messageStatus=$("#messageStatus").val();
+			if(messageStatus=='N'){
+			location.href="updateMessageStatus.do?messageNo="+messageNo;
+			}
+			window.open("receiveMDetail.do?messageNo="+messageNo ,'win0',"width =400, height=600, scroll=no, toolbar=no, menubars=no, location=no, resizable=no ");
+		}
+		var sendMessageOpen;
+		function sendMessageOpen(){
+			window.open("sendMessageGo.do", 'win00',"width=400, height=600, scroll=no, toolbar=no, menubar=no, location=no, resizable=no");
+		}
 		
 		
 	</script>

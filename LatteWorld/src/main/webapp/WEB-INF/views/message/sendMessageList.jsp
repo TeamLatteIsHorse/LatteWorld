@@ -12,23 +12,29 @@
 <body>
 	<jsp:include page ="../common/mainMenuBar.jsp"/>
 	
-	<h1 align="center">보낸 쪽지함</h1>
 	
 	
-	
+	<div class="content">
+		<h1 align="center">보낸 쪽지함</h1>
+		<div class = "etcbutton">
+			<input type="button" onclick="location.href='receivelist.do'" value="받은 쪽지함">
+			<input type="button" onclick="location.href='eraselist.do'" value="휴지통">
+		</div>
 		<table align="center" border="1" cellspacing="0" width="800" id="sendMessage">
 		<tr>
 			<th><input type="checkbox" id="checkall"></th>
 			<th>받은사람</th>
-			<th>내용</th>
+			<th width="300">내용</th>
 			<th>날짜</th>
 		</tr>
 		<c:forEach var="s" items="${list }">
-		<input type="hidden" name="messageNo" value="${s.messageNo}"/>
+		<input id="messageNo" type="hidden" name="messageNo" value="${s.messageNo}"/>
 		<tr>
-			<td align="center"><input type="checkbox" class="chk" name="chk"></td>
+			<td align="center"><input type="checkbox" class="chk" name="chk" value="${s.messageNo }"></td>
 			<td align="center">${s.sendId }</td>
-			<td align="center">${s.content }</td>
+			<td align="center">
+			<a href="#" onclick="sendOpen()"> ${s.messageContent }</a>
+			</td>
 			<td align="center">${s.sendDate }</td>
 		</tr>
 		</c:forEach>
@@ -36,20 +42,21 @@
 		<tr align="center" height="15">
 			<td colspan="4">
 				<c:if test="${pi.currentPage ==1 }">
-					이전
+					[이전]
 				</c:if>
 				
-				<c:if test="${pi.currenPage > 1 }">
-					<c:url var = "slistBack" value="/sendlist.do">
-						<c:param name="page" value="${pi.currendPage - 1 }"/>
+				<c:if test="${pi.currentPage > 1 }">
+					<c:url var = "slistBack" value="sendlist.do">
+						<c:param name="page" value="${pi.currentPage - 1 }"/>
 					</c:url>
-					<a href="${slistBack }">이전</a>
+					<a href="${slistBack }">[이전]</a>
 				</c:if>
 				
 				<c:forEach var = "p" begin="${pi.startPage }" end="${pi.endPage }">
 					<c:if test="${p eq pi.currentPage }">
 						<font color = "red" size="3"><b>[${p }]</b></font>
 					</c:if>
+
 					
 					<c:if test="${p ne pi.currentPage }">
 						<c:url var="slistCheck" value="sendlist.do">
@@ -63,7 +70,7 @@
 	 				</c:if>
 	 				
 	 				<c:if test="${pi.currentPage < pi.maxPage }">
-	 					<c:url var="slistEnd" value="slist.do">
+	 					<c:url var="slistEnd" value="sendlist.do">
 	 						<c:param name="page" value="${pi.currentPage + 1 }"/>
 	 					</c:url>
 	 					<a href="${slistEnd }">&nbsp;[다음]</a>
@@ -71,10 +78,13 @@
 			</td>
 		</tr>
 		<tr>
-			<td><button>쪽지쓰기</button></td>
-			<td><button>삭제하기</button>
+			<td>
+			<button>쪽지쓰기</button>
+			<button id="deleteM">삭제하기</button>
+			</td>
 		</tr>
 		</table>	
+	</div>	
 	
 	
 	
@@ -100,6 +110,29 @@
 			}
 		});
 		
+		//삭제하기
+		$("#deleteM").click(function(){
+			var chk="";
+			$("input[name='chk']:checked").each(function(){
+				chk=chk+$(this).val()+",";
+			});
+			chk=chk.substring(0,chk.lastIndexOf(","));
+			
+			if(chk==''){
+				alert("쪽지를 선택하세요");
+				return false;
+			}
+			
+			if(confirm("삭제 하시겠습니까?")){
+				location.href="deleteMessage.do?chk="+chk;
+			}
+		})
+		
+		var sendOpen;
+		function sendOpen(){
+			var messageNo = $("#messageNo").val();
+			sendOpen = window.open("sendMessageDetail.do?messageNo="+messageNo,'win0',"width=400,height=600, scroll=no, toolbar=no, menubars=no, location=no, resizable=no");
+		}
 	</script>
 	
 	

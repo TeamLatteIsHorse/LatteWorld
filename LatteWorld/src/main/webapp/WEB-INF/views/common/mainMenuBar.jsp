@@ -148,7 +148,7 @@ display : inline-block;
 						</div>
 					</div>
 					님 환영합니다 :)
-				<button onclick = "">쪽지 보내기</button>
+				<button onclick = "location.href = 'receivelist.do' ">쪽지 보내기</button>
 				<c:url var = "mypage" value = "mypage.do">
 					<c:param name = "userId" value = "${UserInfo.userId }"/>
 				</c:url>

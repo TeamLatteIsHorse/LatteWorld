@@ -8,45 +8,107 @@
 		<result property="receiveId" column="RECEIVEID"/>
 		<result property="messageContent" column="MESSAGECONTENT"/>
 		<result property="messageStatus" column="MESSAGESTATUS"/>
+		<result property="eraseStatus" column="ERASESTATUS"/>
 		<result property="sendDate" column="SEND_DATE"/>
 	</resultMap>
 	
-	<select id="getListCountReceive" resultType="_int">
+	<resultMap type= "BestFriend" id="bfResultSet">
+		<id property="bfNo" column="BFNO"/>
+		<result property="bfApplyId" column="BFAPPLYID"/>
+		<result property="bfAppliedId" column="BFAPPLIEDID"/>
+		<result property="bfStatus" column="BFSTATUS"/>
+		<result property="bfComments" column="BFCOMMENTS"/>
+		<result property="bfDate" column="BFDATE"/>
+		<result property="bfConfirmDate" column="BFCONFIRMDATE"/>
+		
+	</resultMap>
+	
+	<select id="getListCountReceive" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
 		FROM MESSAGE
 		WHERE ERASESTATUS='N' AND RECEIVEID=#{receiveId}
 	</select>
 	
-	<select id="getListCountSend" resultType="_int">
+	<select id="getListCountSend" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
 		FROM MESSAGE
 		WHERE SENDID=#{sendId}
 	</select>
 	
-	<select id="getListCountErase" resultType="_int">
+	<select id="getListCountErase" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
 		FROM MESSAGE
 		WHERE ERASESTATUS='Y' AND RECEIVEID=#{receiveId}
 	</select>
 	
-	<select id="selectListReceive" resultMap="messageResultSet">
+	<select id="selectListReceive" parameterType="string" resultMap="messageResultSet">
 		SELECT *
 		FROM MESSAGE
-		WHERE ERASESTATUS='N' RECEIVEID=#{receiveId}
+		WHERE ERASESTATUS='N' AND RECEIVEID=#{receiveId}
 		ORDER BY MESSAGENO DESC
 	</select>
 	
-	<select id="selectListSend" resultMap="messageResultSet">
+	<select id="selectListSend" parameterType="string" resultMap="messageResultSet">
 		SELECT *
 		FROM MESSAGE
-		WHERE ERASESTATUS='N' SENDID=#{sendId}
+		WHERE ERASESTATUS='N' AND SENDID=#{sendId}
 		ORDER BY MESSAGENO DESC
 	</select>
 	
-	<select id="selectListErase" resultMap="messageResultSet">
+	<select id="selectListErase" parameterType="string" resultMap="messageResultSet">
 		SELECT *
 		FROM MESSAGE
-		WHERE ERASESTATUS='Y' RECEIVEID=#{receiveId}
+		WHERE ERASESTATUS='Y' AND RECEIVEID=#{receiveId}
 		ORDER BY MESSAGENO DESC
 	</select>
+	
+	<update id="eraseMessage" parameterType="_int">
+		UPDATE MESSAGE 
+		SET ERASESTATUS='Y' 
+		WHERE MESSAGENO=#{messageNo}
+	</update>
+	
+	<delete id="deleteMessage" parameterType="_int">
+		DELETE 
+		FROM MESSAGE
+		WHERE MESSAGENO=#{messageNo}
+	</delete>
+	
+	<update id="rewindMessage" parameterType="_int">
+		UPDATE MESSAGE
+		SET ERASESTATUS='N'
+		WHERE MESSAGENO=#{messageNo}
+	</update>
+	
+	<select id="receiveMessageDetail" parameterType="_int" resultMap="messageResultSet">
+		SELECT *
+		FROM MESSAGE
+		WHERE MESSAGENO=#{messageNo}
+	</select>
+	
+	<select id="sendMessageDetail" parameterType="_int" resultMap="messageResultSet">
+		SELECT *
+		FROM MESSAGE
+		WHERE MESSAGENO=#{messageNo}
+	</select>
+	
+	<update id="updateMessageStatus" parameterType="_int">
+		UPDATE MESSAGE 
+		SET MESSAGESTATUS='Y' 
+		WHERE MESSAGENO=#{messageNo}
+	</update>
+	
+	<select id="searchBestFriend"  parameterType="string" resultMap="bfResultSet">
+		SELECT BFAPPLYID
+		FROM BESTFRIEND
+		WHERE BFAPPLIEDID=#{userId}
+		
+		UNION
+		
+		SELECT BFAPPLIEDID
+		FROM BESTFRIEND
+		WHERE BFAPPLYID=#{userId}
+	</select>
+	
+	
 </mapper>

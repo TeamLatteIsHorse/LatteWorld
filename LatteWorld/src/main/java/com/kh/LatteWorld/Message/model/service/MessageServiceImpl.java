@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kh.LatteWorld.Message.model.dao.MessageDao;
 import com.kh.LatteWorld.Message.model.vo.Message;
 import com.kh.LatteWorld.Message.model.vo.PageInfoMessage;
+import com.kh.LatteWorld.bestFriend.model.vo.BestFriend;
 
 @Service("meService")
 public class MessageServiceImpl implements MessageService {
@@ -16,20 +17,20 @@ public class MessageServiceImpl implements MessageService {
 
 	//받은 메세지 전체 수 조회
 	@Override
-	public int getListCountReceive() {
+	public int getListCountReceive(String receiveId) {
 		
-		return mDao.getListCountReceive();
+		return mDao.getListCountReceive(receiveId);
 	}
 	//보낸 메시지 전체 수 조회
 	@Override
-	public int getListCountSend() {
-		return mDao.getListCountSend();
+	public int getListCountSend(String sendId) {
+		return mDao.getListCountSend(sendId);
 	}
 
 	//휴지통 전체 수 조회
 	@Override
-	public int getListCountErase() {
-		return mDao.getListCountErase();
+	public int getListCountErase(String receiveId) {
+		return mDao.getListCountErase(receiveId);
 	}
 	
 	// 받은메세지함
@@ -59,33 +60,39 @@ public class MessageServiceImpl implements MessageService {
 	
 	//받은 메세지 조회
 	@Override
-	public Message receiveMessage(int messageNo) {
+	public Message receiveMessageDetail(int messageNo) {
 		return mDao.receiveMessage(messageNo);
 	}
 	//보낸 메세지 보기
 	@Override
-	public Message sendMessageDetail(int messageNo, String sendId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Message sendMessageDetail(int messageNo) {
+		return mDao.sendMessageDetail(messageNo);
 	}
 	//휴지통으로 보내기
 	@Override
-	public int eraseMessage(Message m) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int eraseMessage(int messageNo) {
+		System.out.println(messageNo);
+		return mDao.eraseMessage(messageNo);
 	}
 	
 	//복원하기
 	@Override
-	public int rewindMessage(Message m) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int rewindMessage(int messageNo) {
+		return mDao.rewindMessage(messageNo);
 	}
 
 	//삭제하기
 	@Override
 	public int deleteMessage(int messageNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mDao.deleteMessage(messageNo);
+	}
+	
+	@Override
+	public int updateMessageStatus(int messageNo) {
+		return mDao.updateMessageStatus(messageNo);
+	}
+	@Override
+	public ArrayList<BestFriend> searchBestFriend(String userId) {
+		return mDao.searchBestFriend(userId);
 	}
 }
